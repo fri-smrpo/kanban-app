@@ -32,15 +32,23 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 128,
   },
-  name: {
+  username: {
+    unique: true,
     type: String,
     maxlength: 128,
+    required: true,
     index: true,
     trim: true,
   },
-  demo: {
-    a: String,
-    b: String,
+  name: {
+    type: String,
+    maxlength: 128,
+    trim: true,
+  },
+  surname: {
+    type: String,
+    maxlength: 128,
+    trim: true,
   },
   role: {
     type: String,
@@ -82,7 +90,7 @@ userSchema.pre('save', async function save(next) {
 userSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name', 'email', 'picture', 'role', 'createdAt'];
+    const fields = ['id', 'name', 'email', 'picture', 'role', 'createdAt', 'username', 'surname'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];

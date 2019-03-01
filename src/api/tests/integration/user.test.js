@@ -42,26 +42,34 @@ describe('Users API', async () => {
       branStark: {
         email: 'branstark@gmail.com',
         password: passwordHashed,
-        name: 'Bran Stark',
+        username: 'Bran Stark',
+        name: 'Bran',
+        surname: 'Stark',
         role: 'admin',
       },
       jonSnow: {
         email: 'jonsnow@gmail.com',
         password: passwordHashed,
-        name: 'Jon Snow',
+        username: 'Jon Snow',
+        name: 'Jon',
+        surname: 'Snow',
       },
     };
 
     user = {
       email: 'sousa.dfs@gmail.com',
       password,
-      name: 'Daniel Sousa',
+      username: 'Daniel Sousa',
+      name: 'Daniel',
+      surname: 'Sousa',
     };
 
     admin = {
       email: 'sousa.dfs@gmail.com',
       password,
-      name: 'Daniel Sousa',
+      username: 'Daniel Sousa',
+      name: 'Daniel',
+      surname: 'Sousa',
       role: 'admin',
     };
 
@@ -112,6 +120,27 @@ describe('Users API', async () => {
           expect(field).to.be.equal('email');
           expect(location).to.be.equal('body');
           expect(messages).to.include('"email" already exists');
+        });
+    });
+
+    it('Preveri dodajanje uporabnika z obstoječim uporabniškim imenom.', () => {
+      return request(app)
+        .post('/v1/users')
+        .set('Authorization', `Bearer ${adminAccessToken}`)
+        .send({
+          ...user,
+          email: 'abc@abc.si',
+          username: dbUsers.branStark.username,
+        })
+        .expect(httpStatus.CONFLICT)
+        .then((res) => {
+          console.log(res.body);
+          const { field } = res.body.errors[0];
+          const { location } = res.body.errors[0];
+          const { messages } = res.body.errors[0];
+          expect(field).to.be.equal('username');
+          expect(location).to.be.equal('body');
+          expect(messages).to.include('"username" already exists');
         });
     });
 

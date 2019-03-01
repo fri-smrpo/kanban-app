@@ -9,6 +9,8 @@ module.exports = {
       page: Joi.number().min(1),
       perPage: Joi.number().min(1).max(100),
       name: Joi.string(),
+      surname: Joi.string(),
+      username: Joi.string(),
       email: Joi.string(),
       role: Joi.string().valid(User.roles),
     },
@@ -19,7 +21,9 @@ module.exports = {
     body: {
       email: Joi.string().email().required(),
       password: Joi.string().min(6).max(128).required(),
-      name: Joi.string().max(128),
+      name: Joi.string(),
+      surname: Joi.string(),
+      username: Joi.string(),
       role: Joi.string().valid(User.roles),
     },
   },
@@ -29,7 +33,9 @@ module.exports = {
     body: {
       email: Joi.string().email().required(),
       password: Joi.string().min(6).max(128).required(),
-      name: Joi.string().max(128),
+      name: Joi.string(),
+      surname: Joi.string(),
+      username: Joi.string(),
       role: Joi.string().valid(User.roles),
     },
     params: {
@@ -42,7 +48,9 @@ module.exports = {
     body: {
       email: Joi.string().email(),
       password: Joi.string().min(6).max(128),
-      name: Joi.string().max(128),
+      name: Joi.string(),
+      surname: Joi.string(),
+      username: Joi.string(),
       role: Joi.string().valid(User.roles),
     },
     params: {

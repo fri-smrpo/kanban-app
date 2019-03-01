@@ -21,14 +21,18 @@ describe('Authentication API', () => {
     dbUser = {
       email: 'branstark@gmail.com',
       password: 'mypassword',
-      name: 'Bran Stark',
+      username: 'Bran Stark',
+      name: 'Bran',
+      surname: 'Stark',
       role: 'admin',
     };
 
     user = {
       email: 'sousa.dfs@gmail.com',
       password: '123456',
-      name: 'Daniel Sousa',
+      username: 'Daniel Sousa',
+      name: 'Daniel',
+      surname: 'Sousa',
     };
 
     refreshToken = {
