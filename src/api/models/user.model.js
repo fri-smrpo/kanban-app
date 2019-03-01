@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const httpStatus = require('http-status');
-const { omitBy, isNil } = require('lodash');
+const {omitBy, isNil} = require('lodash');
 const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const jwt = require('jwt-simple');
 const uuidv4 = require('uuid/v4');
 const APIError = require('../utils/APIError');
-const { env, jwtSecret, jwtExpirationInterval } = require('../../config/vars');
+const {env, jwtSecret, jwtExpirationInterval} = require('../../config/vars');
 
 /**
-* User Roles
-*/
+ * User Roles
+ */
 const roles = ['user', 'admin'];
 
 /**
@@ -153,24 +153,24 @@ userSchema.statics = {
    * @returns {Promise<User, APIError>}
    */
   async findAndGenerateToken(options) {
-    const { email, password, refreshObject } = options;
-    if (!email) throw new APIError({ message: 'An email is required to generate a token' });
+    const {email, password, refreshObject} = options;
+    if (!email) throw new APIError({message: 'An email is required to generate a token'});
 
-    const user = await this.findOne({ email }).exec();
+    const user = await this.findOne({email}).exec();
     const err = {
       status: httpStatus.UNAUTHORIZED,
       isPublic: true,
     };
     if (password) {
       if (user && await user.passwordMatches(password)) {
-        return { user, accessToken: user.token() };
+        return {user, accessToken: user.token()};
       }
       err.message = 'Incorrect email or password';
     } else if (refreshObject && refreshObject.userEmail === email) {
       if (moment(refreshObject.expires).isBefore()) {
         err.message = 'Invalid refresh token.';
       } else {
-        return { user, accessToken: user.token() };
+        return {user, accessToken: user.token()};
       }
     } else {
       err.message = 'Incorrect email or refreshToken';
@@ -186,12 +186,12 @@ userSchema.statics = {
    * @returns {Promise<User[]>}
    */
   list({
-    page = 1, perPage = 30, name, email, role,
-  }) {
-    const options = omitBy({ name, email, role }, isNil);
+         page = 1, perPage = 30, name, email, role,
+       }) {
+    const options = omitBy({name, email, role}, isNil);
 
     return this.find(options)
-      .sort({ createdAt: -1 })
+      .sort({createdAt: -1})
       .skip(perPage * (page - 1))
       .limit(perPage)
       .exec();
@@ -208,10 +208,14 @@ userSchema.statics = {
     if (error.name === 'MongoError' && error.code === 11000) {
       return new APIError({
         message: 'Validation Error',
-        errors: [{
+        errors: [error.stack.indexOf('email') > -1 ? {
           field: 'email',
           location: 'body',
           messages: ['"email" already exists'],
+        } : {
+          field: 'username',
+          location: 'body',
+          messages: ['"username" already exists'],
         }],
         status: httpStatus.CONFLICT,
         isPublic: true,
@@ -222,9 +226,9 @@ userSchema.statics = {
   },
 
   async oAuthLogin({
-    service, id, email, name, picture,
-  }) {
-    const user = await this.findOne({ $or: [{ [`services.${service}`]: id }, { email }] });
+                     service, id, email, name, picture,
+                   }) {
+    const user = await this.findOne({$or: [{[`services.${service}`]: id}, {email}]});
     if (user) {
       user.services[service] = id;
       if (!user.name) user.name = name;
@@ -233,7 +237,7 @@ userSchema.statics = {
     }
     const password = uuidv4();
     return this.create({
-      services: { [service]: id }, email, password, name, picture,
+      services: {[service]: id}, email, password, name, picture,
     });
   },
 };
