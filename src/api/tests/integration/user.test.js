@@ -81,6 +81,8 @@ describe('Users API', async () => {
     userAccessToken = (await User.findAndGenerateToken(dbUsers.jonSnow)).accessToken;
   });
 
+  // Preveri dodajanje novega uporabnika skupaj s pripadajočimi podatki.
+
   describe('POST /v1/users', () => {
     it('should create a new user when request is ok', () => {
       return request(app)
@@ -93,6 +95,8 @@ describe('Users API', async () => {
           expect(res.body).to.include(admin);
         });
     });
+
+    // Preveri, ali sistem upošteva dodeljene sistemske pravice.
 
     it('should create a new user and set default role to "user"', () => {
       return request(app)
@@ -123,7 +127,9 @@ describe('Users API', async () => {
         });
     });
 
-    it('Preveri dodajanje uporabnika z obstoječim uporabniškim imenom.', () => {
+    // Preveri dodajanje uporabnika z obstoječim uporabniškim imenom.
+
+    it('should report error when username already exists', () => {
       return request(app)
         .post('/v1/users')
         .set('Authorization', `Bearer ${adminAccessToken}`)
@@ -281,6 +287,8 @@ describe('Users API', async () => {
           expect(messages).to.include('"perPage" must be a number');
         });
     });
+
+    // Preveri, ali sistem upošteva dodeljene sistemske pravice.
 
     it('should report error if logged user is not an admin', () => {
       return request(app)
