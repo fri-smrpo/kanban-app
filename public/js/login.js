@@ -10,7 +10,8 @@ $(document).ready(function(){
       //async: false,
       success: function(data) {
         setToken(data.token.accessToken)
-        $(this).attr('href', "index.html");
+        setUserRole(data.user.role);
+        window.location.replace("index.html");
       },
       error: function(response) {
         alert('Napaka!');

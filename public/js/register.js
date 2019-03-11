@@ -2,15 +2,19 @@ $(document).ready(function(){
 
   function ajaxRegister(dataArray){
     $.ajax({
-      url: '/v1/auth/register',
+      url: '/v1/users',
       type: 'POST',
+      headers: {
+        'Authorization':'Bearer ' + getToken()
+      },
       data: JSON.stringify(dataArray),
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       //async: false,
       success: function(data) {
-        alert(data);
-        $(this).attr('href', "index.html");
+        alert("Uporabnik uspešno ustvarjen!");
+        console.log(data);
+        window.location.replace("index.html");
       },
       error: function(response) {
         alert("Napaka!");
