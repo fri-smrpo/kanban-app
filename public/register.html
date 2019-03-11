@@ -20,6 +20,9 @@
   <!-- jQuery -->
   <script src="js/jquery/jquery-3.3.1.min.js"></script>
 
+  <!-- JS -->
+  <script src="js/register.js"></script>
+
   <!-- Style -->
   <link href="css/base.css" rel="stylesheet">
 </head>
@@ -37,7 +40,7 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Podatki o novem uporabniku</h1>
             </div>
-            <form class="user">
+            <form id="formRegister" class="user" method="post">
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                   <input type="text" class="form-control form-control-user" id="inputFirst" placeholder="Ime">
@@ -48,6 +51,9 @@
               </div>
               <div class="form-group">
                 <input type="email" class="form-control form-control-user" id="inputEmail" placeholder="E-poštni naslov">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control form-control-user" id="inputUsername" placeholder="Uporabniško ime">
               </div>
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -74,7 +80,7 @@
                 </div>
               </div>
               <hr>
-              <a href="login.html" class="btn btn-primary btn-user btn-block">
+              <a href="#" id="anchorRegister" class="btn btn-primary btn-user btn-block">
                 Ustvari uporabnika
               </a>
             </form>
