@@ -9,7 +9,7 @@ $(document).ready(function(){
       dataType: 'json',
       //async: false,
       success: function(data) {
-        alert(data);
+        setToken(data.token.accessToken)
         $(this).attr('href', "index.html");
       },
       error: function(response) {
@@ -41,8 +41,10 @@ $(document).ready(function(){
       var dataArray = {email: inputEmail.val(), password: inputPwd.val()};
       ajaxLogin(dataArray);
     }
-
-
-
   });
+
+
+
+
+
 });
