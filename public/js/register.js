@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   function ajaxRegister(dataArray){
     $.ajax({
-      url: '/',
+      url: '/v1/auth/register',
       type: 'POST',
       data: JSON.stringify(dataArray),
       contentType: 'application/json; charset=utf-8',
@@ -46,6 +46,8 @@ $(document).ready(function(){
       alert("Potrdite geslo!");
     else if(inputPwd1.val() != inputPwd2.val())
       alert("Gesli se ne ujemata!");
+    else if(inputPwd1.val().length < 6)
+      alert("Geslo naj bo dolgo vsaj 6 znakov!");
     else if(!$("#radioUporabnik").is(":checked") && !$("#radioAdministrator").is(":checked"))
       alert("Izberite tip uporabnika!");
     else{

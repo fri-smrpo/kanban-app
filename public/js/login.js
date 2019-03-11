@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   function ajaxLogin(dataArray){
     $.ajax({
-      url: '/',
+      url: '/v1/auth/login',
       type: 'POST',
       data: JSON.stringify(dataArray),
       contentType: 'application/json; charset=utf-8',
