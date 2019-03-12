@@ -24,3 +24,11 @@ function getUserRole() {
 function setUserRole(role) {
   return localStorage.setItem('role', role);
 }
+
+function setName(first,last) {
+  return localStorage.setItem('name', first + ' ' + last);
+}
+
+function getName() {
+  return localStorage.getItem('name');
+}

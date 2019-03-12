@@ -11,6 +11,7 @@ $(document).ready(function(){
       success: function(data) {
         setToken(data.token.accessToken)
         setUserRole(data.user.role);
+        setName(data.user.name, data.user.surname);
         window.location.replace("index.html");
       },
       error: function(response) {

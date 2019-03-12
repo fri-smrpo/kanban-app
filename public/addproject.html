@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SMRPO - Add project</title>
+  <title>SMRPO - Dashboard</title>
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -21,6 +21,10 @@
 
   <!-- jQuery -->
   <script src="js/jquery/jquery-3.3.1.min.js"></script>
+
+  <!-- JS -->
+  <script src="js/index.js"></script>
+  <script src="js/lib/auth.js"></script>
 
   <!-- Style -->
   <link href="css/base.css" rel="stylesheet">
@@ -46,14 +50,15 @@
 
     <hr class="sidebar-divider">
 
-    <div class="sidebar-heading">
-      Administrator
-    </div>
-    <li class="nav-item">
-      <a class="nav-link" href="register.html" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <span>Dodaj uporabnika</span>
-      </a>
-    </li>
+    <div id="adminPrivilegij" style="display:none;">
+      <div class="sidebar-heading">
+        Administrator
+      </div>
+      <li class="nav-item">
+        <a class="nav-link" href="register.html" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <span>Dodaj uporabnika</span>
+        </a>
+      </li></div>
 
     <div class="sidebar-heading">
       Projekti
@@ -114,7 +119,7 @@
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ime Priimek</span>
+              <span id="name_surname" class="mr-2 d-none d-lg-inline text-gray-600 small">~ ~</span>
               <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
             </a>
             <!-- Dropdown - User Information -->
@@ -144,6 +149,15 @@
       </nav>
 
       <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Nov projekt</h1>
+        </div>
+
+        <div class="text-center">
+          <div class="error mx-auto" data-text="404">404</div>
+          <p class="lead text-gray-800 mb-5">Stran ne obstaja</p>
+          <a href="index.html">← Nazaj na glavno stran</a>
+        </div>
       </div>
 
       <!-- Footer -->

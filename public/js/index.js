@@ -9,6 +9,8 @@ $(document).ready(function(){
   if(role == "admin")
     $('#adminPrivilegij').show();
 
+  $('#name_surname').html(getName());
+
 
 
 });
