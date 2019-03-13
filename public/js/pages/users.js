@@ -15,6 +15,7 @@ $(document).ready(function(){
       $('#tableUsers').dataTable().fnAddData( [
         data[i].name,
         data[i].surname,
+        data[i].username,
         data[i].email,
         role
       ]);
