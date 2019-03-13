@@ -46,7 +46,7 @@
   }
 
   function add() {
-
+    $('#myInput').trigger('focus')
   }
 
   function load() {
@@ -73,8 +73,8 @@
 
   <div id="items-view">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg">
-      Ustvari projekt
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Dodaj projekt
     </button>
 
     <table class="table table-striped">
@@ -85,23 +85,11 @@
       </thead>
       <tbody id="items">
 
-<<<<<<< Updated upstream
       </tbody>
     </table>
-=======
-<button type="button" class="btn btn-secondary">Ustvari projekt</button>
-
-
->>>>>>> Stashed changes
 
   </div>
 </div>
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
