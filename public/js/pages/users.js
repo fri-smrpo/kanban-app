@@ -1,5 +1,53 @@
 $(document).ready(function(){
 
+  $("#tableUsers").DataTable();
+  function populateTable(data){
+    console.log("Populating");
+    $("#tableUsers").DataTable().clear();
+    var length = Object.keys(data).length;
+    console.log(length);
+    for(var i = 0; i<length; i++){
+
+      if(data[i].role == 'user'){
+        role = "Uporabnik";
+      }else
+        role = "Administrator";
+      $('#tableUsers').dataTable().fnAddData( [
+        data[i].name,
+        data[i].surname,
+        data[i].username,
+        data[i].email,
+        role
+      ]);
+    }
+
+  }
+
+  function loadUsers() {
+    $.ajax({
+      url: '/v1/users',
+      type: 'GET',
+      headers: {
+        'Authorization':'Bearer ' + getToken()
+      },
+      dataType: 'json',
+      //async: false,
+      success: function(data) {
+        console.log(data);
+        //jsonUserData = data;
+        populateTable(data);
+      },
+      error: function(response) {
+        alert("Prosimo poskusite kasneje!");
+        console.log(response);
+      }
+
+    });
+  }
+
+  loadUsers();
+
+
   function ajaxRegister(dataArray){
     $.ajax({
       url: '/v1/users',
