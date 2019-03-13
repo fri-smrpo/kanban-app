@@ -38,6 +38,14 @@
 
 <script>
 
+function showAddDialog() {
+
+}
+
+function add() {
+
+}
+
 function load() {
   apiProjectList(items => {
     items.forEach(x => {
@@ -52,8 +60,11 @@ function load() {
     })
   });
 }
+load();
 
-  load();
+if (getParameterByName('action') === "add") {
+  showAddDialog();
+}
 
 </script>
 
