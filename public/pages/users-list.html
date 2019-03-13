@@ -1,13 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SMRPO">
+  <meta name="author" content="">
 
+  <title>Uporabniki</title>
+
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Fonts -->
+  <link href="../css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+
+  <!-- JS -->
+  <script src="../js/pages/users.js"></script>
+  <script src="../js/lib/auth.js"></script>
+
+  <!-- Style -->
+  <link href="../css/base.css" rel="stylesheet">
+
+  <!-- DataTables -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 
 </head>
+<body class="page-top">
 
-<body>
-  <h1>Users list</h1>
+<!-- MODAL -->
+<div class="container" class="card o-hidden border-0 shadow-lg my-5">
+
+  <div class="container-fluid" style="margin-top: 20px;">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Uporabniki</h1>
+      <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#exampleModal">
+        Ustvari uporabnika
+      </button>
+    </div>
+
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Registrirani uporabniki</h6>
+      </div>
+      <div class="card-body">
+        <div id="divTabela">
+          <table id="tableUsers" class="display">
+            <thead>
+            <tr>
+              <th>Ime</th>
+              <th>Priimek</th>
+              <th>E-naslov</th>
+              <th>Vloga</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Podatki o novem uporabniku</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="formRegister" class="user" method="post">
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="text" class="form-control form-control-user" id="inputFirst" placeholder="Ime">
+              </div>
+              <div class="col-sm-6">
+                <input type="text" class="form-control form-control-user" id="inputLast" placeholder="Priimek">
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control form-control-user" id="inputEmail" placeholder="E-poštni naslov">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control form-control-user" id="inputUsername" placeholder="Uporabniško ime">
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="password" class="form-control form-control-user" id="inputPasswd1" placeholder="Geslo">
+              </div>
+              <div class="col-sm-6">
+                <input type="password" class="form-control form-control-user" id="inputPasswd2" placeholder="Ponovi geslo">
+              </div>
+            </div>
+            <hr>
+            <div class="text-center">
+              <h1 class="h6 text-gray-900 mb-4">Tip uporabnika</h1>
+            </div>
+            <div class="form-group text-center">
+              <div class="custom-control custom-radio">
+                <input type="radio" name="accountType" class="custom-control-input" id="radioUporabnik">
+                <label class="custom-control-label" for="radioUporabnik">Uporabnik</label>
+              </div>
+            </div>
+            <div class="form-group text-center">
+              <div class="custom-control custom-radio">
+                <input type="radio" name="accountType" class="custom-control-input" id="radioAdministrator">
+                <label class="custom-control-label" for="radioAdministrator">Administrator</label>
+              </div>
+            </div>
+            <hr>
+            <a href="#" id="anchorRegister" class="btn btn-primary btn-user btn-block">
+              Ustvari uporabnika
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Podatki o novem uporabniku</h1>
+              </div>
+              <form id="formRegister" class="user" method="post">
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="inputFirst" placeholder="Ime">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" id="inputLast" placeholder="Priimek">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-user" id="inputEmail" placeholder="E-poštni naslov">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="inputUsername" placeholder="Uporabniško ime">
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="password" class="form-control form-control-user" id="inputPasswd1" placeholder="Geslo">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-user" id="inputPasswd2" placeholder="Ponovi geslo">
+                  </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                  <h1 class="h6 text-gray-900 mb-4">Tip uporabnika</h1>
+                </div>
+                <div class="form-group text-center">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" name="accountType" class="custom-control-input" id="radioUporabnik">
+                    <label class="custom-control-label" for="radioUporabnik">Uporabnik</label>
+                  </div>
+                </div>
+                <div class="form-group text-center">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" name="accountType" class="custom-control-input" id="radioAdministrator">
+                    <label class="custom-control-label" for="radioAdministrator">Administrator</label>
+                  </div>
+                </div>
+                <hr>
+                <a href="#" id="anchorRegister" class="btn btn-primary btn-user btn-block">
+                  Ustvari uporabnika
+                </a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+  <!-- END MODAL -->
+</div>
+
 </body>
-
 </html>
