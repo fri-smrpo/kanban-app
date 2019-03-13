@@ -46,7 +46,14 @@
   }
 
   function add() {
-    $('#myInput').trigger('focus')
+    apiProjectCreate({
+      name: 'aa',
+      users: []
+    }, function(response)  {
+      console.log(response);
+    }, function (error) {
+      console.error(error);
+    })
   }
 
   function load() {
