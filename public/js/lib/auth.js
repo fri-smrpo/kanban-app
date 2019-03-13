@@ -32,3 +32,4 @@ function setName(first,last) {
 function getName() {
   return localStorage.getItem('name');
 }
+
