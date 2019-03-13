@@ -110,9 +110,23 @@ describe('Projects API', async () => {
           expect(messages).to.include('Project name already exists');
         });
     });
+  });
 
-    // # Preveri izbiro uporabnikov za delo na projektu.
-    // # Preveri določitev projektnih vlog.
+  describe('PUT /v1/projects:projectId', () => {
+    it('should replace project', async () => {
+      const id = (await Project.findOne(dbProjects.spo))._id;
 
+      return request(app)
+        .put(`/v1/projects/${id}`)
+        .set('Authorization', `Bearer ${adminAccessToken}`)
+        .send({
+          name: 'spo2',
+          users: [],
+        })
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.name).to.be.equal('spo2');
+        });
+    });
   });
 });

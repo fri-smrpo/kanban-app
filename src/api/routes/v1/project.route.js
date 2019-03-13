@@ -19,6 +19,7 @@ router.param('projectId', controller.load);
 
 router
   .route('/')
+  .get(authorize(ADMIN), controller.list)
   .post(authorize(ADMIN), validate(createProject), controller.create)
   .put(authorize(ADMIN), validate(replaceProject), controller.replace)
   .patch(authorize(ADMIN), validate(updateProject), controller.update)
