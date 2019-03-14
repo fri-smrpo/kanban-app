@@ -38,3 +38,32 @@ function apiProjectList(success, error){
     error
   });
 }
+function apiSprintCreate(data, success, error){
+  $.ajax({
+    url: '/v1/sprints',
+    type: 'POST',
+    headers: {
+      'Authorization':'Bearer ' + getToken()
+    },
+    data: JSON.stringify(data),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success,
+    error
+  });
+}
+
+function apiSprintList(success, error){
+  $.ajax({
+    url: '/v1/sprints',
+    type: 'GET',
+    headers: {
+      'Authorization':'Bearer ' + getToken()
+    },
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success,
+    error
+  });
+}
+

@@ -60,9 +60,15 @@ $(document).ready(function(){
       dataType: 'json',
       //async: false,
       success: function(data) {
-        alert("Uporabnik uspešno ustvarjen!");
+        //alert("Uporabnik uspešno ustvarjen!");
+        $('#successinfo').addClass('alert alert-success').text("Uporabnik uspešno ustvarjen");
+
+
+        $("#tableUsers").DataTable().clear();
+        loadUsers();
+        $("#exampleModal").modal('toggle');
         console.log(data);
-        window.location.replace("users-list.html");
+        //window.location.replace("users-list.html");
       },
       error: function(errorThrown) {
         /**
@@ -71,6 +77,8 @@ $(document).ready(function(){
         console.log(errorThrown);
          **/
         console.log(errorThrown);
+        var errResponse = errorThrown.responseJSON.errors[0].messages[0];
+        $('#napaka').text(errResponse);
 
         //if(errorThrown == 'Conflict') $('#napaka').text("Ta e-naslov že obstaja");
 
