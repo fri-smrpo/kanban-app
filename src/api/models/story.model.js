@@ -64,7 +64,7 @@ storySchema.pre('save', async function save(next) {
 storySchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name', 'description', 'acceptanceTests', 'businessValue', 'priority', 'projectId'];
+    const fields = ['id', 'name', 'description', 'acceptanceTests', 'businessValue', 'priority', 'projectId', 'sprintId'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
