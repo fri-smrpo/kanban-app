@@ -15,6 +15,9 @@ $(document).ready(function(){
         window.location.replace("index.html");
       },
       error: function(jqXHR, textStatus, errorThrown) {
+
+        $("#napaka").text('Napačni e-poštni naslov ali geslo.');
+
         console.log(jqXHR);
         console.log(textStatus);
         console.log(errorThrown);
