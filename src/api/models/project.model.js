@@ -33,6 +33,7 @@ const projectSchema = new mongoose.Schema({
     },
     {
       user: {
+        required: true,
         type: ObjectId,
         ref: 'User'
       },

@@ -3,8 +3,8 @@ const httpStatus = require('http-status');
 const {omitBy, isNil} = require('lodash');
 const APIError = require('../utils/APIError');
 
-// Za vsako zgodbo lahko določita njeno ime, besedilo, sprejemne teste, prioriteto () in poslovno vrednost.
 const priorities = ['must have', 'could have', 'should have', 'won\'t have this time'];
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 /**
  * Story Schema
@@ -12,7 +12,8 @@ const priorities = ['must have', 'could have', 'should have', 'won\'t have this 
  */
 const storySchema = new mongoose.Schema({
   name: {
-    type: String
+    type: String,
+    required: true
   },
   description: {
     type: String
@@ -29,8 +30,13 @@ const storySchema = new mongoose.Schema({
     default: 'must have',
   },
   projectId: {
+    required: true,
     type: ObjectId,
     ref: 'Project'
+  },
+  sprintId: {
+    type: ObjectId,
+    ref: 'Sprint'
   },
 }, {
   timestamps: true,

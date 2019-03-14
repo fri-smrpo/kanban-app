@@ -22,7 +22,7 @@ exports.create = async (req, res, next) => {
     res.status(httpStatus.CREATED);
     res.json(savedSprint.transform());
   } catch (error) {
-    next(Sprint.checkDuplicateName(error));
+    next(error);
   }
 };
 
