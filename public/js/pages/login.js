@@ -14,9 +14,19 @@ $(document).ready(function(){
         setName(data.user.name, data.user.surname);
         window.location.replace("index.html");
       },
-      error: function(response) {
-        alert('Napaka!');
-        console.log(response);
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+
+        if(errorThrown == "Bad Request"){
+          //alert(JSON.parse(jqXHR.responseText).errors[0].messages);
+          alert("Napaka v e-naslovu");
+        }else if(errorThrown == "Unauthorized"){
+          alert("Napačno geslo oz. e-naslov");
+        }else
+          alert(JSON.parse(jqXHR.responseText).messages);
+
       }
 
     });

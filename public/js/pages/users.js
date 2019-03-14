@@ -64,9 +64,13 @@ $(document).ready(function(){
         console.log(data);
         window.location.replace("index.html");
       },
-      error: function(response) {
-        alert("Napaka!");
-        console.log(response);
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+
+        if(errorThrown == 'Conflict') alert("Ta e-naslov že obstaja");
+
       }
 
     });
