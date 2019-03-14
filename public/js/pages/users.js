@@ -62,14 +62,17 @@ $(document).ready(function(){
       success: function(data) {
         alert("Uporabnik uspešno ustvarjen!");
         console.log(data);
-        window.location.replace("index.html");
+        window.location.replace("users-list.html");
       },
-      error: function(jqXHR, textStatus, errorThrown) {
+      error: function(errorThrown) {
+        /**
         console.log(jqXHR);
         console.log(textStatus);
         console.log(errorThrown);
+         **/
+        console.log(errorThrown);
 
-        if(errorThrown == 'Conflict') alert("Ta e-naslov že obstaja");
+        //if(errorThrown == 'Conflict') $('#napaka').text("Ta e-naslov že obstaja");
 
       }
 

@@ -16,17 +16,17 @@ $(document).ready(function(){
       },
       error: function(jqXHR, textStatus, errorThrown) {
 
-        $("#napaka").text('Napačni e-poštni naslov ali geslo.');
-
         console.log(jqXHR);
         console.log(textStatus);
         console.log(errorThrown);
 
         if(errorThrown == "Bad Request"){
           //alert(JSON.parse(jqXHR.responseText).errors[0].messages);
-          alert("Napaka v e-naslovu");
+          //alert("Napaka v e-naslovu");
+          $("#napaka").text('Napaka v e-naslovu.');
         }else if(errorThrown == "Unauthorized"){
-          alert("Napačno geslo oz. e-naslov");
+          //alert("Napačno geslo oz. e-naslov");
+          $("#napaka").text('Napačni e-poštni naslov ali geslo.');
         }else
           alert(JSON.parse(jqXHR.responseText).messages);
 
