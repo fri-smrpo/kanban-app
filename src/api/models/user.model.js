@@ -212,11 +212,11 @@ userSchema.statics = {
         errors: [error.stack.indexOf('email') > -1 ? {
           field: 'email',
           location: 'body',
-          messages: ['"email" already exists'],
+          messages: ['E-poštni naslov je že v uporabi.'],
         } : {
           field: 'username',
           location: 'body',
-          messages: ['"username" already exists'],
+          messages: ['Uporabniško ime je že v uporabi.'],
         }],
         status: httpStatus.CONFLICT,
         isPublic: true,

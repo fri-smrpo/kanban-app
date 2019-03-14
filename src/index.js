@@ -18,7 +18,7 @@ async function createAdmin() {
   const dbUsers = {
     admin: {
       email: 'admin@admin.com',
-      password: await bcrypt.hash('admin123', 1),
+      password: 'admin123',
       username: 'admin',
       name: 'admin',
       surname: 'admin',
@@ -26,19 +26,33 @@ async function createAdmin() {
     },
     user: {
       email: 'user@user.com',
-      password: await bcrypt.hash('user123', 1),
+      password: 'user123',
       username: 'user',
       name: 'user',
       surname: 'user',
     },
+    test: {
+      email: 'test@test.com',
+      password: 'test123',
+      username: 'test',
+      name: 'test',
+      surname: 'test',
+    },
   };
 
-  if (!await User.find({email: dbUsers.admin.email})) {
-    User.insert(dbUsers.admin);
+  if (!(await User.findOne({email: dbUsers.admin.email}))) {
+    const user = new User(dbUsers.admin);
+    await user.save();
   }
 
-  if (!await User.find({email: dbUsers.user.email})) {
-    User.insert(dbUsers.user);
+  if (!(await User.findOne({email: dbUsers.user.email}))) {
+    const user = new User(dbUsers.user);
+    await user.save();
+  }
+
+  if (!(await User.findOne({email: dbUsers.test.email}))) {
+    const user = new User(dbUsers.test);
+    await user.save();
   }
 }
 
@@ -50,4 +64,4 @@ async function createAdmin() {
 module.exports = app;
 
 
-createAdmin();
+createAdmin().catch(console.error);
