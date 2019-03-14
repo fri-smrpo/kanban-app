@@ -121,7 +121,7 @@ projectSchema.statics = {
         errors: [{
           field: 'name',
           location: 'body',
-          messages: ['Project name already exists'],
+          messages: ['Ime projekta že obstaja.'],
         }],
         status: httpStatus.CONFLICT,
         isPublic: true,
@@ -133,6 +133,6 @@ projectSchema.statics = {
 };
 
 /**
- * @typedef User
+ * @typedef Project
  */
 module.exports = mongoose.model('Project', projectSchema);
