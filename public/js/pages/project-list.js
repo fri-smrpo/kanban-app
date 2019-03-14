@@ -6,7 +6,7 @@ $(document).ready(function(){
     var length = Object.keys(data).length;
     console.log(length);
     for (var i = 0; i < length; i++) {
-      $('#dropdownUporabniki').append($("<option />").val(data[i].username).text(data[i].username + ' (' + data[i].name + ' ' + data[i].surname + ')'));
+      $('#dropdownUporabniki').append($(`<option role='${data[i].id}' />`).val(data[i].username).text(data[i].username + ' (' + data[i].name + ' ' + data[i].surname + ')'));
     }
   }
 

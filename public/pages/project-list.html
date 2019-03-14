@@ -51,22 +51,55 @@ function dodajVloga(a) {
   vloga = a;
 }
 
+
+// TODO: gumb za delete uporabnka v vrstici pod naslovom projekta (ob kreiranju)
+// TODO: onclick na projekt, da se prikažejo info o projektu -> Enako okno kot za kreirane.
+
+
 function dodajOseba() {
 
   var izbranaOseba = $('#dropdownUporabniki :selected').text();
-  $("#ppl").append('<tr><td>' + izbranaOseba + ', ' + vloga +'</tr></td>');
+  var idUpor = $('#dropdownUporabniki :selected').attr('role');
+
+  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': ' + vloga +'</td></tr>');
   $('#dropdownUporabniki :selected').remove();
 
 }
-/**
-  function add() { //kličem ko je projekt ustvarjen
-    apiProjectCreate({
-      name: 'aa', //poberem vn ime projetka
-      users: []   //poberem vn userje
+  function add() {
+
+    var imena = [];
+    var naslov = $("#naslov").val();
+    var user = {};
+
+    $("tr.item").each(function () {
+
+      var r;
+      if($(this).find("td").text().split(":")[1].trim() === "Produktni vodja"){
+        r = "product-owner";
+      }
+
+      if($(this).find("td").text().split(":")[1].trim() === "Skrbnik metodologije"){
+        r = "scrum-master";
+      }
+
+      if($(this).find("td").text().split(":")[1].trim() === "Razvijalec"){
+        r = "developer";
+      }
+
+      user = {role: r, id: $(this).find("td").attr('role')};
+      imena.push(user);
+    });
+
+  console.log(imena);
+
+
+     apiProjectCreate({
+      name: naslov,
+      users: imena
     }, function(response)  {  //Kličem, če server vrne uspešno
-      console.log(response);
+       window.alert("USPEŠNO!!");
     }, function (error) {     //Kličem, če server vrne neuspešno
-      console.error(error);
+      window.alert("NEUSPEŠNO!!");
     })
   }
 
@@ -75,13 +108,13 @@ function dodajOseba() {
 
     apiProjectList(items => {
       items.forEach(x => {
-        const element = $('<tr><td> ${ x.name } </td></tr>');
+        const element = $(`<tr><td> ${x.name} </td></tr>`);
         $("#items").append(element);
       })
     });
   }
 
-  load();**/
+  load();
 
 
 </script>
@@ -122,7 +155,7 @@ function dodajOseba() {
       <div class="modal-body">
         <div class="input-group">
           <span class="input-group-addon"></span>
-          <input id="msg" type="text" class="form-control" name="msg" placeholder="Naslov">
+          <input id="naslov" type="text" class="form-control" name="msg" placeholder="Naslov">
         </div>
 
 
@@ -137,17 +170,18 @@ function dodajOseba() {
         <div class="input-group" style="margin-top:40px;">
           <select class="custom-select" id="dropdownUporabniki">
             <option>Nalagam...</option>
+
           </select>
 
 
           <div class="input-group-append">
             <button class="btn btn-outline-secondary dropdown-toggle" id="vloga" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Izberi vlogo</button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#" onclick="dodajVloga('Produktni vodja')">Produktni vodja</a>
+              <a class="dropdown-item" id="1" href="#" onclick="dodajVloga('Produktni vodja')">Produktni vodja</a>
+              <div role="separator"  class="dropdown-divider"></div>
+              <a class="dropdown-item" id="2" href="#" onclick="dodajVloga('Skrbnik metodologije')">Skrbnik metodologije</a>
               <div role="separator" class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" onclick="dodajVloga('Skrbnik metodologije')">Skrbnik metodologije</a>
-              <div role="separator" class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" onclick="dodajVloga('Član razvojne skupine')">Član razvojne skupine</a>
+              <a class="dropdown-item"  id="3" href="#" onclick="dodajVloga('Razvijalec')">Razvijalec</a>
 
 
             </div>
@@ -158,7 +192,7 @@ function dodajOseba() {
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Potrdi</button>
+        <button type="button" class="btn btn-primary" onclick="add()">Potrdi</button>
       </div>
     </div>
   </div>

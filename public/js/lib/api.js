@@ -15,7 +15,7 @@ function apiProjectCreate(data, success, error){
     headers: {
       'Authorization':'Bearer ' + getToken()
     },
-    data,
+    data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success,
