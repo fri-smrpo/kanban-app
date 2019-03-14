@@ -19,16 +19,15 @@ router.param('projectId', controller.load);
 
 router
   .route('/')
-  .get(authorize(ADMIN), controller.list)
-  .post(authorize(ADMIN), validate(createProject), controller.create)
-  .put(authorize(ADMIN), validate(replaceProject), controller.replace)
-  .patch(authorize(ADMIN), validate(updateProject), controller.update)
-  .delete(authorize(ADMIN), controller.remove);
+  .get(authorize(LOGGED_USER), validate(listProjects), controller.list)
+  .post(authorize(ADMIN), validate(createProject), controller.create);
 
 
 router
   .route('/:projectId')
-  .get(authorize(LOGGED_USER), validate(listProjects), controller.list)
+  .put(authorize(ADMIN), validate(replaceProject), controller.replace)
+  .patch(authorize(ADMIN), validate(updateProject), controller.update)
+  .delete(authorize(ADMIN), controller.remove)
   .get(authorize(LOGGED_USER), controller.get);
 
 
