@@ -2,15 +2,20 @@ const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const {omitBy, isNil} = require('lodash');
 const APIError = require('../utils/APIError');
-
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 /**
  * User Schema
  * @private
  */
 const sprintSchema = new mongoose.Schema({
-  start: { type: Date },
-  end: { type: Date },
+  start: { type: Date, required: true },
+  end: { type: Date, required: true },
+  projectId: {
+    required: true,
+    type: ObjectId,
+    ref: 'Project'
+  },
 }, {
   timestamps: true,
 });
