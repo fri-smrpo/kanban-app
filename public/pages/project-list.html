@@ -52,8 +52,10 @@ function dodajVloga(a) {
 }
 
 
-// TODO: gumb za delete uporabnka v vrstici pod naslovom projekta (ob kreiranju)
-// TODO: onclick na projekt, da se prikažejo info o projektu -> Enako okno kot za kreirane.
+// TODO: onclick na projekt, da se prikažejo info o projektu -> Enako okno kot za kreiranje.
+
+//TODO: zamenjaj s slovenskimi izrazi: Naslov ne sme biti prazen. Role ne sme biti prazna.
+
 
 
 function dodajOseba() {
@@ -61,11 +63,22 @@ function dodajOseba() {
   var izbranaOseba = $('#dropdownUporabniki :selected').text();
   var idUpor = $('#dropdownUporabniki :selected').attr('role');
 
-  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': ' + vloga +'</td></tr>');
+  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': ' + vloga +'<td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
   $('#dropdownUporabniki :selected').remove();
 
 }
-  function add() {
+
+
+function izbrisiOseba(a) {
+  $(a).parents('tr').remove();
+}
+
+function urediProjekt() {
+
+}
+
+
+function add() {
 
     var imena = [];
     var naslov = $("#naslov").val();
@@ -90,17 +103,26 @@ function dodajOseba() {
       imena.push(user);
     });
 
-  console.log(imena);
+    if (imena.length === 0) {
+      $("#napaka").text("Projektu dodajte osebe.");
+    }
 
+    else {
 
-     apiProjectCreate({
-      name: naslov,
-      users: imena
-    }, function(response)  {  //Kličem, če server vrne uspešno
-       window.alert("USPEŠNO!!");
-    }, function (error) {     //Kličem, če server vrne neuspešno
-      window.alert("NEUSPEŠNO!!");
-    })
+      apiProjectCreate({
+        name: naslov,
+        users: imena
+      }, function (response) {
+        $("#success")
+          .text("Projekt uspešno dodan!");
+
+        location.reload();
+
+      }, function (error) {
+        $("#napaka")
+          .text(error.responseJSON.errors[0].messages[0]);
+      })
+    }
   }
 
   function load() {
@@ -108,7 +130,7 @@ function dodajOseba() {
 
     apiProjectList(items => {
       items.forEach(x => {
-        const element = $(`<tr><td> ${x.name} </td></tr>`);
+        const element = $(`<tr><td> ${x.name} </td> <td><button onclick="urediProjekt()" style="float: right;" class="btn"><i class="fa fa-bars"></i></button></td></tr>`);
         $("#items").append(element);
       })
     });
@@ -151,7 +173,13 @@ function dodajOseba() {
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+
+
       </div>
+
+
+
+
       <div class="modal-body">
         <div class="input-group">
           <span class="input-group-addon"></span>
@@ -159,7 +187,7 @@ function dodajOseba() {
         </div>
 
 
-        <table class="table table-striped" style="margin-top:30px;">
+        <table id="vloge" class="table table-striped" style="margin-top:30px;">
           <tbody id="ppl">
 
           </tbody>
@@ -192,10 +220,20 @@ function dodajOseba() {
 
       </div>
       <div class="modal-footer">
+
+
+
         <button type="button" class="btn btn-primary" onclick="add()">Potrdi</button>
       </div>
+
     </div>
+    <p class="text-success" id="success"></p>
+    <p class="text-danger" id="napaka"></p>
+
   </div>
+
+
+
 </div>
 
 </body>
