@@ -54,9 +54,6 @@ function dodajVloga(a) {
 
 // TODO: onclick na projekt, da se prikažejo info o projektu -> Enako okno kot za kreiranje.
 
-//TODO: zamenjaj s slovenskimi izrazi: Naslov ne sme biti prazen. Role ne sme biti prazna.
-
-
 
 function dodajOseba() {
 
@@ -73,7 +70,11 @@ function izbrisiOseba(a) {
   $(a).parents('tr').remove();
 }
 
-function urediProjekt() {
+function urediProjekt(ime, id, upor) {
+  $("#exampleModalLabel").text("Uredi projekt");
+  $("#naslov").val(ime);
+
+  console.log(upor[0].user+" "+upor[0].role);
 
 }
 
@@ -130,8 +131,9 @@ function add() {
 
     apiProjectList(items => {
       items.forEach(x => {
-        const element = $(`<tr><td> ${x.name} </td> <td><button onclick="urediProjekt()" style="float: right;" class="btn"><i class="fa fa-bars"></i></button></td></tr>`);
-        $("#items").append(element);
+        // , ${id}, ${upor}
+        ime = x.name;
+        $("#items").append(`<tr><td> ${x.name} </td> <td><button onclick="urediProjekt('${x.name}', '${x.id}', '${x.users}')" style="float: right;" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></td></tr>`);
       })
     });
   }
