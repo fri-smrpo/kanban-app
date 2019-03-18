@@ -55,14 +55,20 @@ function dodajVloga(a) {
 // TODO: onclick na projekt, da se prikažejo info o projektu -> Enako okno kot za kreiranje.
 
 
+
+function reset() {
+  $(".modal-body input").val("");
+  $("#ppl").html("");
+}
+
+
 function dodajOseba() {
 
   var izbranaOseba = $('#dropdownUporabniki :selected').text();
   var idUpor = $('#dropdownUporabniki :selected').attr('role');
 
-  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': <span class="vloga">' + vloga +'</span><td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
+  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': ' + vloga +'<td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
   $('#dropdownUporabniki :selected').remove();
-
 }
 
 
@@ -93,22 +99,19 @@ function add() {
     var user = {};
 
     $("tr.item").each(function () {
-      
 
       var r;
-      if($(this).find("td .vloga").text() === "Produktni vodja"){
+      if($(this).find("td").text().split(":")[1].trim() === "Produktni vodja"){
         r = "product-owner";
       }
 
-      if($(this).find("td  .vloga").text() === "Skrbnik metodologije"){
+      if($(this).find("td").text().split(":")[1].trim() === "Skrbnik metodologije"){
         r = "scrum-master";
       }
 
-      if($(this).find("td  .vloga").text() === "Razvijalec"){
+      if($(this).find("td").text().split(":")[1].trim() === "Razvijalec"){
         r = "developer";
       }
-
-
 
       user = {user: $(this).find("td").attr('role'), role: r};
       imena.push(user);
@@ -134,10 +137,8 @@ function add() {
           .text(error.responseJSON.errors[0].messages[0]);
       })
     }
-  }
 
-  function sprintView(id){
-    window.location.replace("project.html" + "?id=" + id);
+    reset();
   }
 
   function load() {
@@ -147,9 +148,7 @@ function add() {
       projects = items;
 
       items.forEach(x => {
-        // , ${id}, ${upor}
-        ime = x.name;
-        $("#items").append(`<tr><td> ${x.name} </td> <td><button type="button" class="btn btn-light" onclick="sprintView('${x.id}')">Podrobno</button><button onclick="urediProjekt('${x.id}')" style="float: right;" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></td></tr>`);
+        $("#items").append(`<tr><td> ${x.name} </td> <td><button onclick="urediProjekt('${x.id}')" style="float: right;" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></td></tr>`);
       })
     });
   }
@@ -188,7 +187,7 @@ function add() {
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Nov projekt</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" onclick="reset()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
 
