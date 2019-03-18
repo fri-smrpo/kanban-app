@@ -78,17 +78,14 @@ sprintSchema.statics = {
   },
 
   list({
-         projectId
+         page = 1, perPage = 30, name
        }) {
-    const options = {};
-    if (projectId) {
-      options.projectId = projectId;
-    }
+    const options = omitBy({name}, isNil);
 
     return this.find(options)
       .sort({createdAt: -1})
-      // .skip(perPage * (page - 1))
-      // .limit(perPage)
+      .skip(perPage * (page - 1))
+      .limit(perPage)
       .exec();
   },
 
