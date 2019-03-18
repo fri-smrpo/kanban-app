@@ -78,9 +78,9 @@ sprintSchema.statics = {
   },
 
   list({
-         page = 1, perPage = 30, name
+         page = 1, perPage = 30, projectId
        }) {
-    const options = omitBy({name}, isNil);
+    const options = omitBy({projectId}, isNil);
 
     return this.find(options)
       .sort({createdAt: -1})
