@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SMRPO">
+  <meta name="author" content="">
+
+  <title>Uporabniki</title>
+
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Fonts -->
+  <link href="../css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+
+  <!-- JS -->
+  <script src="../js/lib/auth.js"></script>
+  <script src="../js/pages/project.js"></script>
+
+  <!-- Style -->
+  <link href="../css/base.css" rel="stylesheet">
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+  <script>
+    var currentDate = new Date();
+    console.log(currentDate);
+  </script>
+</head>
+<body class="page-top">
+
+<!-- MODAL -->
+<div class="container" class="card o-hidden border-0 shadow-lg my-5">
+
+  <div class="container-fluid" style="margin-top: 20px;">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 id="projectName" class="h3 mb-0 text-gray-800">IME_PLACEHOLDER</h1>
+      <div id="successinfo" role="alert">
+      </div>
+      <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#exampleModal">
+        Dodaj sprint
+      </button>
+    </div>
+
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Vsi sprinti</h6>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+          </thead>
+          <tbody id="tableSprints">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Backlog</h6>
+      </div>
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Podatki o novem sprintu</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="formRegister" class="user" method="post">
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="date" class="form-control form-control-user" id="beginSprint">
+              </div>
+              <div class="col-sm-6">
+                <input type="date" class="form-control form-control-user" id="endSprint">
+              </div>
+            </div>
+            <!--
+            <div class="form-group">
+              <input type="number" class="form-control form-control-user" id="inputEmail" placeholder="E-poštni naslov">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control form-control-user" id="inputUsername" placeholder="Uporabniško ime">
+            </div>
+            -->
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="number" min="1" step="1" class="form-control form-control-user" id="speedNum" placeholder="Hitrost">
+              </div>
+              <div class="col-sm-6">
+                <select id="speedType" class="form-control">
+                  <option value="h">h</option>
+                  <option value="d">d</option>
+                </select>
+              </div>
+            </div>
+            <p class="text-danger" id="napaka"></p>
+            <a href="#" id="anchorCreateSprint" class="btn btn-primary btn-user btn-block">
+              Ustvari sprint
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
