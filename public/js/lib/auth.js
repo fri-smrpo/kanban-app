@@ -33,3 +33,11 @@ function getName() {
   return localStorage.getItem('name');
 }
 
+function setUserID(id) {
+  return localStorage.setItem('id', id);
+}
+
+function getUserID(){
+  return localStorage.getItem('id');
+}
+
