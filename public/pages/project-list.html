@@ -52,10 +52,6 @@ function dodajVloga(a) {
 }
 
 
-// TODO: onclick na projekt, da se prikažejo info o projektu -> Enako okno kot za kreiranje.
-
-
-
 function reset() {
   $(".modal-body input").val("");
   $("#ppl").html("");
@@ -67,7 +63,7 @@ function dodajOseba() {
   var izbranaOseba = $('#dropdownUporabniki :selected').text();
   var idUpor = $('#dropdownUporabniki :selected').attr('role');
 
-  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': ' + vloga +'<td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
+  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': <span class="vloga">' + vloga +'</span><td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
   $('#dropdownUporabniki :selected').remove();
 }
 
@@ -81,10 +77,17 @@ function urediProjekt(id) {
 
   $("#exampleModalLabel").text("Uredi projekt");
   $("#naslov").val(izbranProjekt.name);
-
+//console.log(window.value);
 
   for(const u of izbranProjekt.users) {
-    console.log(u.user+" "+u.role);
+    //console.log(u.user+" "+u.role);
+    for(const v of window.value) {
+      if (u.user === v[0]) {
+        var end = v[1]+ " ("+v[2]+" "+v[3]+"): "+u.role;
+        $("#ppl").append('<tr class="item"><td role="' + u.user + '">' + end + '<span class="vloga">' + vloga +'</span><td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
+      }
+    }
+
   }
 }
 
@@ -100,16 +103,17 @@ function add() {
 
     $("tr.item").each(function () {
 
+
       var r;
-      if($(this).find("td").text().split(":")[1].trim() === "Produktni vodja"){
+      if($(this).find("td .vloga").text() === "Produktni vodja"){
         r = "product-owner";
       }
 
-      if($(this).find("td").text().split(":")[1].trim() === "Skrbnik metodologije"){
+      if($(this).find("td  .vloga").text() === "Skrbnik metodologije"){
         r = "scrum-master";
       }
 
-      if($(this).find("td").text().split(":")[1].trim() === "Razvijalec"){
+      if($(this).find("td  .vloga").text() === "Razvijalec"){
         r = "developer";
       }
 
@@ -141,6 +145,10 @@ function add() {
     reset();
   }
 
+  function sprintView(id){
+    window.location.replace("project.html" + "?id=" + id);
+  }
+
   function load() {
     $("#items").empty();
 
@@ -148,7 +156,8 @@ function add() {
       projects = items;
 
       items.forEach(x => {
-        $("#items").append(`<tr><td> ${x.name} </td> <td><button onclick="urediProjekt('${x.id}')" style="float: right;" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></td></tr>`);
+        $("#items").append(`<tr><td> ${x.name} </td> <td><button type="button" class="btn btn-light" onclick="sprintView('${x.id}')">Podrobno</button><button onclick="urediProjekt('${x.id}')" style="float: right;" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></td></tr>`);
+
       })
     });
   }
