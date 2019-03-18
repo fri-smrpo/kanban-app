@@ -107,7 +107,7 @@ function add() {
         r = "developer";
       }
 
-      user = {role: r, id: $(this).find("td").attr('role')};
+      user = {user: $(this).find("td").attr('role'), role: r};
       imena.push(user);
     });
 

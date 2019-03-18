@@ -11,6 +11,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const sprintSchema = new mongoose.Schema({
   start: { type: Date, required: true },
   end: { type: Date, required: true },
+  speed: { type: Number },
   projectId: {
     required: true,
     type: ObjectId,
