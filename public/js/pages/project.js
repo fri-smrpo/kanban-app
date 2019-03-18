@@ -94,7 +94,7 @@ $(document).ready(function(){
   $('#anchorCreateSprint').click(function(){
     var begin = $('#beginSprint').val();
     var end = $('#endSprint').val();
-    var speed = $('#speedNum').val() + $('#speedType').val();
+    var speed = $('#speedNum').val();
     dataArr = {start: new Date(begin),
       end: new Date(end),
       projectId: window.location.search.split('=')[1],

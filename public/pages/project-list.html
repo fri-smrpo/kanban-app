@@ -133,6 +133,10 @@ function add() {
     }
   }
 
+  function sprintView(id){
+    window.location.replace("project.html" + "?id=" + id);
+  }
+
   function load() {
     $("#items").empty();
 
@@ -142,7 +146,7 @@ function add() {
       items.forEach(x => {
         // , ${id}, ${upor}
         ime = x.name;
-        $("#items").append(`<tr><td> ${x.name} </td> <td><button onclick="urediProjekt('${x.id}')" style="float: right;" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></td></tr>`);
+        $("#items").append(`<tr><td> ${x.name} </td> <td><button type="button" class="btn btn-light" onclick="sprintView('${x.id}')">Podrobno</button><button onclick="urediProjekt('${x.id}')" style="float: right;" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></td></tr>`);
       })
     });
   }
