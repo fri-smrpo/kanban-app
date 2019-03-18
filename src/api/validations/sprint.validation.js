@@ -8,6 +8,7 @@ module.exports = {
     query: {
       page: Joi.number().min(1),
       perPage: Joi.number().min(1).max(100),
+      speed: Joi.number(),
       start: Joi.date(),
       end: Joi.date()
     },
@@ -17,7 +18,8 @@ module.exports = {
   createSprint: {
     body: {
       start: Joi.date(),
-      end: Joi.date()
+      end: Joi.date(),
+      speed: Joi.number(),
     },
   },
 
@@ -25,7 +27,8 @@ module.exports = {
   replaceSprint: {
     body: {
       start: Joi.date(),
-      end: Joi.date()
+      end: Joi.date(),
+      speed: Joi.number(),
     },
     params: {
       sprintId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
@@ -36,7 +39,8 @@ module.exports = {
   updateSprint: {
     body: {
       start: Joi.date(),
-      end: Joi.date()
+      end: Joi.date(),
+      speed: Joi.number(),
     },
     params: {
       sprintId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
