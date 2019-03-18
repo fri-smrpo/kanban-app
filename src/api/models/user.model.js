@@ -187,7 +187,7 @@ userSchema.statics = {
    * @returns {Promise<User[]>}
    */
   list({
-         page = 1, perPage = 30, name, email, role,
+         page = 1, perPage = 99999, name, email, role,
        }) {
     const options = omitBy({name, email, role}, isNil);
 
