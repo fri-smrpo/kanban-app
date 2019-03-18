@@ -30,14 +30,12 @@ const projectSchema = new mongoose.Schema({
         enum: roles,
         default: 'user',
       },
-    },
-    {
       user: {
         required: true,
         type: ObjectId,
         ref: 'User'
       },
-    },
+    }
   ],
 }, {
   timestamps: true,

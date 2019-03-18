@@ -60,7 +60,7 @@ function dodajOseba() {
   var izbranaOseba = $('#dropdownUporabniki :selected').text();
   var idUpor = $('#dropdownUporabniki :selected').attr('role');
 
-  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': ' + vloga +'<td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
+  $("#ppl").append('<tr class="item"><td role="' + idUpor + '">' + izbranaOseba + ': <span class="vloga">' + vloga +'</span><td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
   $('#dropdownUporabniki :selected').remove();
 
 }
@@ -93,19 +93,22 @@ function add() {
     var user = {};
 
     $("tr.item").each(function () {
+      
 
       var r;
-      if($(this).find("td").text().split(":")[1].trim() === "Produktni vodja"){
+      if($(this).find("td .vloga").text() === "Produktni vodja"){
         r = "product-owner";
       }
 
-      if($(this).find("td").text().split(":")[1].trim() === "Skrbnik metodologije"){
+      if($(this).find("td  .vloga").text() === "Skrbnik metodologije"){
         r = "scrum-master";
       }
 
-      if($(this).find("td").text().split(":")[1].trim() === "Razvijalec"){
+      if($(this).find("td  .vloga").text() === "Razvijalec"){
         r = "developer";
       }
+
+
 
       user = {user: $(this).find("td").attr('role'), role: r};
       imena.push(user);
