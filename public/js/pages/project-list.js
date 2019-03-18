@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
   function populateList(data) {
 
     console.log("Populating");
