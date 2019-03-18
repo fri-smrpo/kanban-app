@@ -23,6 +23,21 @@ function apiProjectCreate(data, success, error){
   });
 }
 
+function apiProjectUpdate(st, data, success, error){
+  $.ajax({
+    url: '/v1/projects/'+st,
+    type: 'PUT',
+    headers: {
+      'Authorization':'Bearer ' + getToken()
+    },
+    data: JSON.stringify(data),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success,
+    error
+  });
+}
+
 
 function apiProjectList(success, error){
   $.ajax({

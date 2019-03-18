@@ -45,6 +45,9 @@
 <ul id="list"></ul>
 
 <script>
+var uredi = 0;
+var stP;
+
 var vloga = "";
 function dodajVloga(a) {
   $("#vloga").text(a);
@@ -73,6 +76,8 @@ function izbrisiOseba(a) {
 }
 
 function urediProjekt(id) {
+  uredi = 1;
+  stP = id;
   var izbranProjekt = projects.find(x => x.id === id);
 
   $("#exampleModalLabel").text("Uredi projekt");
@@ -87,7 +92,6 @@ function urediProjekt(id) {
         $("#ppl").append('<tr class="item"><td role="' + u.user + '">' + end + '<span class="vloga">' + vloga +'</span><td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
       }
     }
-
   }
 }
 
@@ -127,19 +131,45 @@ function add() {
 
     else {
 
-      apiProjectCreate({
-        name: naslov,
-        users: imena
-      }, function (response) {
-        $("#success")
-          .text("Projekt uspešno dodan!");
+      if (uredi === 0) {
+        apiProjectCreate({
+          name: naslov,
+          users: imena
+        }, function (response) {
+          $("#success")
+            .text("Projekt uspešno dodan!");
 
-        location.reload();
+          location.reload();
 
-      }, function (error) {
-        $("#napaka")
-          .text(error.responseJSON.errors[0].messages[0]);
-      })
+        }, function (error) {
+          $("#napaka")
+            .text(error.responseJSON.errors[0].messages[0]);
+        })
+      }
+
+      else{
+        var a = naslov;
+        console.log(a);
+
+
+        apiProjectUpdate(stP ,{
+          name: a,
+          users: imena
+        }, function (response) {
+          $("#success")
+            .text("Projekt uspešno posodobljen!");
+
+          location.reload();
+
+        }, function (error) {
+          $("#napaka")
+            .text(error.responseJSON.errors[0].messages[0]);
+        })
+
+        uredi = 0;
+      }
+
+
     }
 
     reset();
@@ -156,6 +186,7 @@ function add() {
       projects = items;
 
       items.forEach(x => {
+        console.log(x.name);
         $("#items").append(`<tr><td> ${x.name} </td> <td><button type="button" class="btn btn-light" onclick="sprintView('${x.id}')">Podrobno</button><button onclick="urediProjekt('${x.id}')" style="float: right;" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></td></tr>`);
 
       })
