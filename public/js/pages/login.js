@@ -12,6 +12,7 @@ $(document).ready(function(){
         setToken(data.token.accessToken)
         setUserRole(data.user.role);
         setName(data.user.name, data.user.surname);
+        setUserID(data.user.id);
         window.location.replace("index.html");
       },
       error: function(jqXHR, textStatus, errorThrown) {

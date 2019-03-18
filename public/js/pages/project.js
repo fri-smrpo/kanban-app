@@ -16,6 +16,17 @@ $(document).ready(function(){
         console.log(data);
         console.log("End")
         projectData = data;
+
+        var users = data.users;
+        var currentUserId = getUserID();
+        $('#addNewSprint').prop('disabled', true);
+        users.forEach(usr => {
+          if(usr._id == currentUserId && usr.role != 'developer')
+            $('#addNewSprint').prop('disabled', false);
+
+          console.log(usr.role);
+          console.log(usr._id)
+        })
       },
       error: function(response) {
         alert("Napaka!");
@@ -31,7 +42,7 @@ $(document).ready(function(){
 
   function loadSprints(id){
     $.ajax({
-      url: '/v1/sprints',
+      url: '/v1/sprints' + '?projectId=' + id,
       type: 'GET',
       headers: {
         'Authorization':'Bearer ' + getToken()
@@ -44,7 +55,7 @@ $(document).ready(function(){
 
         var counter = 1;
         data.forEach(x => {
-          $("#tableSprints").append(`<tr><td>` + `Sprint ` + counter + ` ` + x.id + `</td></tr>`);
+          $("#tableSprints").append(`<tr><td>` + new Date(x.start) + `</td><td>` + new Date(x.end) + `</td></tr>`);
           counter = counter + 1;
         })
       },
@@ -57,7 +68,7 @@ $(document).ready(function(){
 
   }
 
-  function saveSprint(dataArray){
+  function saveSprint(dataArray,id){
       $.ajax({
         url: '/v1/sprints',
         type: 'POST',
@@ -70,7 +81,7 @@ $(document).ready(function(){
         //async: false,
         success: function(data) {
           $('#exampleModal').modal('toggle');
-          loadSprints();
+          loadSprints(id);
           console.log("Uspeh");
           console.log(data);
         },
@@ -83,7 +94,7 @@ $(document).ready(function(){
 
 
   }
-  loadSprints();
+  loadSprints(window.location.search.split('=')[1]);
   var d = new Date().toISOString().slice(0,10);
   //getProject(windows.location.search.split('=')[1]);
 
@@ -101,7 +112,7 @@ $(document).ready(function(){
       speed: speed};
 
     if(new Date(begin).getTime() <= new Date(end).getTime())
-      saveSprint(dataArr);
+      saveSprint(dataArr, window.location.search.split('=')[1]);
     else
       $('#napaka').text("Sprint se ne more končati pred začetkom!");
   });
