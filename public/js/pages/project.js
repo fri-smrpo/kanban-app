@@ -162,6 +162,8 @@ $(document).ready(function(){
   }
 
   function saveStory(dataArray, id){
+    $('#napakaStory').text("");
+
     $.ajax({
       url: '/v1/stories',
       type: 'POST',
@@ -173,19 +175,40 @@ $(document).ready(function(){
       dataType: 'json',
       //async: false,
       success: function(data) {
+        reset();
         $('#exampleModal2').modal('toggle');
         loadStories(id);
         console.log("Uspeh");
         console.log(data);
       },
       error: function(response) {
-        $('#napakaStory').text("Napaka, to ime že obstaja!");
-        console.log(response);
+
+        if (response.responseJSON.errors) {
+          if (Array.isArray(response.responseJSON.errors)) {
+            $('#napakaStory').text(
+              response.responseJSON.errors
+                .map(x => x.messages[0])
+              .join('\n ')
+            );
+          } else if (response.responseJSON.errors.messages) {
+            $('#napakaStory').text(
+              response.responseJSON.errors.messages.join('\n ')
+            );
+          } else {
+            $('#napakaStory').text("Napaka, vaš obrazec ni veljaven!");
+          }
+
+        } else {
+          $('#napakaStory').text("Napaka, vaš obrazec ni veljaven!");
+        }
+
+
+        console.warn(response);
       }
 
     });
 
-    reset();
+
 
   }
   loadSprints(window.location.search.split('=')[1]);
