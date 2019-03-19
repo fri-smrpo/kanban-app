@@ -92,7 +92,12 @@ sprintSchema.statics = {
 
 
   checkOverlap(model) {
+    this.find({ projectId: model.projectId })
+      .then(items => {
+        items
 
+        return true;
+      })
   },
 };
 

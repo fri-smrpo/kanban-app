@@ -17,6 +17,7 @@ module.exports = {
       priority: Joi.string().valid(Story.priorities),
       projectId: Joi.string(),
       sprintId: Joi.string(),
+      status: Joi.string(),
     },
   },
 
@@ -30,6 +31,7 @@ module.exports = {
       priority: Joi.string().valid(Story.priorities),
       projectId: Joi.string(),
       sprintId: Joi.string(),
+      status: Joi.string(),
     },
   },
 
@@ -43,6 +45,7 @@ module.exports = {
       priority: Joi.string().valid(Story.priorities),
       projectId: Joi.string(),
       sprintId: Joi.string(),
+      status: Joi.string(),
     },
     params: {
       storyId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
@@ -59,6 +62,7 @@ module.exports = {
       priority: Joi.string().valid(Story.priorities),
       projectId: Joi.string(),
       sprintId: Joi.string(),
+      status: Joi.string(),
     },
     params: {
       storyId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),

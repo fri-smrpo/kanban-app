@@ -16,6 +16,9 @@ const storySchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  status: {
+    type: String
+  },
   description: {
     type: String
   },
@@ -65,7 +68,7 @@ storySchema.pre('save', async function save(next) {
 storySchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name', 'description', 'acceptanceTests', 'businessValue', 'priority', 'projectId', 'sprintId'];
+    const fields = ['id', 'name', 'description', 'acceptanceTests', 'businessValue', 'priority', 'projectId', 'sprintId', 'status'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
