@@ -3,6 +3,7 @@ const httpStatus = require('http-status');
 const {omitBy, isNil} = require('lodash');
 const APIError = require('../utils/APIError');
 const ObjectId = mongoose.Schema.Types.ObjectId;
+var moment = require('moment');
 
 function dateRangeOverlaps(a_start, a_end, b_start, b_end) {
   if (a_start <= b_start && b_start <= a_end) return true; // b starts in a
@@ -110,8 +111,8 @@ sprintSchema.statics = {
 
     for (const itm of items) {
       if (dateRangeOverlaps(itm.start, itm.end, model.start, model.end)) {
-        throw new APIError({ // d.M.yyyy
-          message: `Sprint se prekriva z obstoječim ${ itm.start } - ${ itm.end }`,
+        throw new APIError({ //
+          message: `Sprint se prekriva z obstoječim ${ moment (itm.start).format('D. M.') } - ${ moment (itm.end).format('D. M.') }`,
           status: httpStatus.BAD_REQUEST,
         });
       }
