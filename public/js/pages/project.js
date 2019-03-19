@@ -115,7 +115,7 @@ $(document).ready(function(){
         console.log(data);
 
         data.forEach(x => {
-          $("#tableSprints").append(`<tr><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
+          $("#tableStories").append(`<tr><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
         })
       },
       error: function(response) {
@@ -190,8 +190,7 @@ $(document).ready(function(){
       acceptanceTests: acceptanceTests,
       businessValue: businessValue,
       priority: priority,
-      projectId: projectId,
-      sprintId: ''};
+      projectId: projectId};
 
     console.log(dataArr)
     saveStory(dataArr, projectId);
