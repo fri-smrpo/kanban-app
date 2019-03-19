@@ -13,6 +13,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const storySchema = new mongoose.Schema({
   name: {
     type: String,
+    unique: true,
     required: true
   },
   description: {
@@ -110,6 +111,23 @@ storySchema.statics = {
       .skip(perPage * (page - 1))
       .limit(perPage)
       .exec();
+  },
+
+  checkDuplicateName(error) {
+    if (error.name === 'MongoError' && error.code === 11000) {
+      return new APIError({
+        message: 'Validation Error',
+        errors: {
+          field: 'name',
+          location: 'body',
+          messages: ['Ime je že v uporabi.'],
+        },
+        status: httpStatus.CONFLICT,
+        isPublic: true,
+        stack: error.stack,
+      });
+    }
+    return error;
   },
 };
 
