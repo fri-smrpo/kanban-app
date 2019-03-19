@@ -19,16 +19,16 @@ router.param('storyId', controller.load);
 
 router
   .route('/')
-  .get(authorize(LOGGED_USER), validate(listStorys), controller.list)
+  .get(authorize(), validate(listStorys), controller.list)
   .post(authorize(ADMIN), validate(createStory), controller.create);
 
 
 router
   .route('/:storyId')
-  .get(authorize(LOGGED_USER), controller.get)
-  .put(authorize(LOGGED_USER), validate(replaceStory), controller.replace)
-  .patch(authorize(LOGGED_USER), validate(updateStory), controller.update)
-  .delete(authorize(LOGGED_USER), controller.remove);
+  .get(authorize(), controller.get)
+  .put(authorize(), validate(replaceStory), controller.replace)
+  .patch(authorize(), validate(updateStory), controller.update)
+  .delete(authorize(), controller.remove);
 
 
 module.exports = router;

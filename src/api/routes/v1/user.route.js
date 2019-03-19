@@ -19,7 +19,7 @@ router.param('userId', controller.load);
 
 router
   .route('/')
-  .get(authorize(ADMIN), validate(listUsers), controller.list)
+  .get(authorize(), validate(listUsers), controller.list)
   .post(authorize(ADMIN), validate(createUser), controller.create);
 
 
@@ -30,10 +30,10 @@ router
 
 router
   .route('/:userId')
-  .get(authorize(LOGGED_USER), controller.get)
-  .put(authorize(LOGGED_USER), validate(replaceUser), controller.replace)
-  .patch(authorize(LOGGED_USER), validate(updateUser), controller.update)
-  .delete(authorize(LOGGED_USER), controller.remove);
+  .get(authorize(), controller.get)
+  .put(authorize(), validate(replaceUser), controller.replace)
+  .patch(authorize(), validate(updateUser), controller.update)
+  .delete(authorize(), controller.remove);
 
 
 module.exports = router;

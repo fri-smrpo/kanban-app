@@ -19,7 +19,7 @@ router.param('projectId', controller.load);
 
 router
   .route('/')
-  .get(authorize(LOGGED_USER), validate(listProjects), controller.list)
+  .get(authorize(), validate(listProjects), controller.list)
   .post(authorize(ADMIN), validate(createProject), controller.create);
 
 
@@ -28,7 +28,7 @@ router
   .put(authorize(ADMIN), validate(replaceProject), controller.replace)
   .patch(authorize(ADMIN), validate(updateProject), controller.update)
   .delete(authorize(ADMIN), controller.remove)
-  .get(authorize(LOGGED_USER), controller.get);
+  .get(authorize(), controller.get);
 
 
 module.exports = router;

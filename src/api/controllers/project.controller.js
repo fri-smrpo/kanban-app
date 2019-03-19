@@ -54,6 +54,7 @@ exports.list = async (req, res, next) => {
   try {
     const projects = await Project.list(req.query);
     const transformedProjects = projects.map(project => project.transform());
+
     res.json(transformedProjects);
   } catch (error) {
     next(error);

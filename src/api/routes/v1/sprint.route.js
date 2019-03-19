@@ -19,13 +19,13 @@ router.param('sprintId', controller.load);
 
 router
   .route('/')
-  .get(authorize(LOGGED_USER), validate(listSprints), controller.list)
+  .get(authorize(), validate(listSprints), controller.list)
   .post(authorize(ADMIN), validate(createSprint), controller.create);
 
 
 router
   .route('/:sprintId')
-  .get(authorize(LOGGED_USER), controller.get)
+  .get(authorize(), controller.get)
   .put(authorize(ADMIN), validate(replaceSprint), controller.replace)
   .patch(authorize(ADMIN), validate(updateSprint), controller.update)
   .delete(authorize(ADMIN), controller.remove);
