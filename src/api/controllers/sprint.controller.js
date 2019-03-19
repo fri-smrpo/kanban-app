@@ -18,6 +18,9 @@ exports.get = (req, res) => res.json(req.locals.sprint.transform());
 exports.create = async (req, res, next) => {
   try {
     const sprint = new Sprint(req.body);
+
+    await Sprint.checkOverlap(sprint);
+
     const savedSprint = await sprint.save();
     res.status(httpStatus.CREATED);
     res.json(savedSprint.transform());
@@ -32,6 +35,8 @@ exports.replace = async (req, res, next) => {
     const newSprint = new Sprint(req.body);
     const newSprintObject = omit(newSprint.toObject(), '_id');
 
+    await Sprint.checkOverlap(newSprint);
+
     await sprint.update(newSprintObject, { override: true, upsert: true });
     const savedSprint = await Sprint.findById(sprint._id);
 
@@ -41,16 +46,19 @@ exports.replace = async (req, res, next) => {
   }
 };
 
-exports.update = (req, res, next) => {
-  const updatedSprint = req.body; // omit(req.body, 'key');
-  const sprint = Object.assign(req.locals.sprint, updatedSprint);
+exports.update = async (req, res, next) => {
+  try {
+    const updatedSprint = req.body; // omit(req.body, 'key');
+    const sprint = Object.assign(req.locals.sprint, updatedSprint);
 
-  Sprint.checkOverlap(sprint)
-    .then(() => {
-      sprint.save()
-        .then(savedSprint => res.json(savedSprint.transform()));
-    })
-    .catch(error => next(error));
+    await Sprint.checkOverlap(newSprint);
+
+    sprint.save()
+      .then(savedSprint => res.json(savedSprint.transform()))
+      .catch(error => next(error));
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.list = async (req, res, next) => {

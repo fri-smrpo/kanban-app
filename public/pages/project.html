@@ -22,6 +22,7 @@
 
   <!-- JS -->
   <script src="../js/lib/auth.js"></script>
+  <script src="../js/lib/moment.min.js"></script>
   <script src="../js/pages/project.js"></script>
 
   <!-- Style -->
@@ -154,9 +155,10 @@
                 </select>
               </div>
               -->
-              <input type="number" min="1" step="1" class="form-control form-control-user" id="speedNum" placeholder="Hitrost">
+              <input type="number" min="1" step="1" class="form-control form-control-user" id="speedNum" placeholder="Hitrost" value="1">
             </div>
             <p class="text-danger" id="napaka"></p>
+            <p class="text-danger" id="napaka_anchorCreateSprint"></p>
             <a href="#" id="anchorCreateSprint" class="btn btn-primary btn-user btn-block">
               Ustvari sprint
             </a>
