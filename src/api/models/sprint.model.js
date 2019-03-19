@@ -43,7 +43,7 @@ sprintSchema.pre('save', async function save(next) {
 sprintSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'start', 'end', 'createdAt', 'projectId'];
+    const fields = ['id', 'start', 'end', 'createdAt', 'projectId', 'speed'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
