@@ -22,9 +22,11 @@ $(document).ready(function(){
         $('#addNewSprint').prop('disabled', true);
         $('#addNewStory').prop('disabled', true);
         users.forEach(usr => {
-          if(usr._id == currentUserId && usr.role != 'developer'){
-            $('#addNewSprint').prop('disabled', false);
-            $('#addNewStory').prop('disabled', false);
+          if(usr.role != 'developer') {
+            if (usr.user == currentUserId) {
+              $('#addNewSprint').prop('disabled', false);
+              $('#addNewStory').prop('disabled', false);
+            }
           }
 
 
@@ -90,7 +92,7 @@ $(document).ready(function(){
           console.log(data);
         },
         error: function(response) {
-          alert("Napaka!");
+          alert("Napaka prekrivanje!");
           console.log(response);
         }
 
@@ -143,7 +145,7 @@ $(document).ready(function(){
         console.log(data);
       },
       error: function(response) {
-        alert("Napaka!");
+        $('#napakaStory').text("Napaka, to ime že obstaja!");
         console.log(response);
       }
 
