@@ -1,4 +1,26 @@
 $(document).ready(function(){
+
+  //---------Preverjanje Check-box----------------
+  $('input[type="checkbox"]').click(function(){
+    if($(this).prop("checked") == true){
+      if($(this).attr('id') === "inlineCheckbox1") {
+        console.log("Zaključeno - zakljukano");
+      }
+      else {
+        console.log("V delu - zakljukano");
+      }
+    }
+    else if($(this).prop("checked") == false){
+      if($(this).attr('id') === "inlineCheckbox1") {
+        console.log("Zaključeno - odkljukano");
+      }
+      else {
+        console.log("V delu - odkljukano");
+      }
+    }
+  });
+ //----------------------------------------------
+
   function getProject(project_id){
 
     var projectData;
@@ -98,6 +120,7 @@ $(document).ready(function(){
 
       });
 
+      reset();
 
   }
 
@@ -150,6 +173,8 @@ $(document).ready(function(){
       }
 
     });
+
+    reset();
 
   }
   loadSprints(window.location.search.split('=')[1]);

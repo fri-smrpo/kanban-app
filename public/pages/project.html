@@ -32,6 +32,11 @@
   <script>
     var currentDate = new Date();
     console.log(currentDate);
+
+    function reset() {
+      $(".modal-body input").val("");
+    }
+
   </script>
 </head>
 <body class="page-top">
@@ -77,6 +82,19 @@
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Backlog</h6>
+
+        <!-- Check BOX done / not done -->
+        <div class="form-check form-check-inline" style="float:right;">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+          <label class="form-check-label" for="inlineCheckbox1">Zaključeno</label>
+        </div>
+        <div class="form-check form-check-inline" style="float:right;">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+          <label class="form-check-label" for="inlineCheckbox2">V delu</label>
+        </div>
+
+
+
       </div>
       <div class="card-body">
         <table class="table table-striped">
@@ -101,7 +119,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Podatki o novem sprintu</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button onclick="reset()" type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -152,7 +170,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel2">Podatki o novi uporabniški zgodbi</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button onclick="reset()" type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
