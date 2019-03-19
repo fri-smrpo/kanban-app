@@ -138,7 +138,9 @@ $(document).ready(function(){
         console.log(data);
         $("#tableStories").empty();
         data.forEach(x => {
-          $("#tableStories").append(`<tr><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
+          if(x.priority.charAt(2) == "n")
+            x.priority = "will not have this time";
+          $("#tableStories").append(`<tr onclick="showInfo('${x.name}','${x.description}','${x.acceptanceTests}','${x.businessValue}','${x.priority}')"><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
         })
       },
       error: function(response) {
@@ -222,3 +224,15 @@ $(document).ready(function(){
 
   });
 });
+
+
+function showInfo(name,description,acceptanceTests,businessValue,priority){
+  //empty modal
+  $('#exampleModal3').modal('toggle');
+  $('#exampleModalLabel3').text(name);
+  $('#storyOpis').text(description);
+  $('#storyTests').text(acceptanceTests);
+  $('#storyBusinessValueAndPriority').text("Poslovna vrednost: " + businessValue + "\n" + "Prioriteta: " + priority);
+  console.log("aa");
+  console.log(name, description, acceptanceTests, businessValue, priority);
+}
