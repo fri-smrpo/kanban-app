@@ -3,6 +3,14 @@ const httpStatus = require('http-status');
 const {omitBy, isNil} = require('lodash');
 const APIError = require('../utils/APIError');
 const ObjectId = mongoose.Schema.Types.ObjectId;
+var moment = require('moment');
+
+function dateRangeOverlaps(a_start, a_end, b_start, b_end) {
+  if (a_start <= b_start && b_start <= a_end) return true; // b starts in a
+  if (a_start <= b_end   && b_end   <= a_end) return true; // b ends in a
+  if (b_start <  a_start && a_end   <  b_end) return true; // a in b
+  return false;
+}
 
 /**
  * User Schema
@@ -91,13 +99,26 @@ sprintSchema.statics = {
   },
 
 
-  checkOverlap(model) {
-    this.find({ projectId: model.projectId })
-      .then(items => {
-        items
+  async checkOverlap(model) {
+    let items = await this.find({ projectId: model.projectId });
+    if (model.start > model.end) {
+      throw new APIError({
+        message: 'Začetni čas je večji od končnega.',
+        status: httpStatus.BAD_REQUEST,
+      });
+    }
+    items = items.filter(x => x.id !== model.id);
 
-        return true;
-      })
+    for (const itm of items) {
+      if (dateRangeOverlaps(itm.start, itm.end, model.start, model.end)) {
+        throw new APIError({ //
+          message: `Sprint se prekriva z obstoječim ${ moment (itm.start).format('D. M.') } - ${ moment (itm.end).format('D. M.') }`,
+          status: httpStatus.BAD_REQUEST,
+        });
+      }
+    }
+
+    return false;
   },
 };
 

@@ -83,7 +83,7 @@ $(document).ready(function(){
         $("#tableSprints").empty();
         var counter = 1;
         data.forEach(x => {
-          $("#tableSprints").append(`<tr><td>` + new Date(x.start) + `</td><td>` + new Date(x.end) + `</td></tr>`);
+          $("#tableSprints").append(`<tr><td>` + moment(new Date(x.start)).format('D. M. YYYY') + `</td><td>` + moment(new Date(x.end)).format('D. M. YYYY') + `</td><td>` + x.speed + `</td></tr>`);
           counter = counter + 1;
         })
       },
@@ -97,6 +97,10 @@ $(document).ready(function(){
   }
 
   function saveSprint(dataArray,id){
+
+    $("#napaka_anchorCreateSprint").text('');
+    $('#napaka').text('');
+
       $.ajax({
         url: '/v1/sprints',
         type: 'POST',
@@ -108,19 +112,24 @@ $(document).ready(function(){
         dataType: 'json',
         //async: false,
         success: function(data) {
+
+          reset();
           $('#exampleModal').modal('toggle');
           loadSprints(id);
           console.log("Uspeh");
           console.log(data);
         },
         error: function(response) {
-          alert("Napaka prekrivanje!");
-          console.log(response);
+          // alert("Napaka prekrivanje!");
+          console.warn(response);
+
+          if (!dataArray.speed) { // NOT OK but for FRI ....
+            $("#napaka_anchorCreateSprint").text('Polje hitrost je obvezno.');
+          } else {
+            $("#napaka_anchorCreateSprint").text(response.responseJSON.message);
+          }
         }
-
       });
-
-      reset();
 
   }
 
@@ -138,7 +147,9 @@ $(document).ready(function(){
         console.log(data);
         $("#tableStories").empty();
         data.forEach(x => {
-          $("#tableStories").append(`<tr><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
+          if(x.priority.charAt(2) == "n")
+            x.priority = "will not have this time";
+          $("#tableStories").append(`<tr onclick="showInfo('${x.name}','${x.description}','${x.acceptanceTests}','${x.businessValue}','${x.priority}')"><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
         })
       },
       error: function(response) {
@@ -222,3 +233,15 @@ $(document).ready(function(){
 
   });
 });
+
+
+function showInfo(name,description,acceptanceTests,businessValue,priority){
+  //empty modal
+  $('#exampleModal3').modal('toggle');
+  $('#exampleModalLabel3').text(name);
+  $('#storyOpis').text(description);
+  $('#storyTests').text(acceptanceTests);
+  $('#storyBusinessValueAndPriority').text("Poslovna vrednost: " + businessValue + "\n" + "Prioriteta: " + priority);
+  console.log("aa");
+  console.log(name, description, acceptanceTests, businessValue, priority);
+}
