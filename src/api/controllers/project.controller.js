@@ -53,7 +53,18 @@ exports.update = (req, res, next) => {
 exports.list = async (req, res, next) => {
   try {
     const projects = await Project.list(req.query);
-    const transformedProjects = projects.map(project => project.transform());
+    let transformedProjects = projects.map(project => project.transform());
+
+    if (req.user.role !== 'admin') {
+      transformedProjects = transformedProjects.filter(x => {
+        for (let i = 0; i < x.users.length; i++) {
+          if (x.users[i].user.toString() == req.user.id) {
+            return true;
+          }
+        }
+        return false;
+      });
+    }
 
     res.json(transformedProjects);
   } catch (error) {
