@@ -8,24 +8,41 @@ module.exports = {
     query: {
       page: Joi.number().min(1),
       perPage: Joi.number().min(1).max(100),
-      start: Joi.date(),
-      end: Joi.date()
+
+
+      name: Joi.string(),
+      description: Joi.string(),
+      acceptanceTests: Joi.string(),
+      businessValue: Joi.number(),
+      priority: Joi.string().valid(Story.priorities),
+      projectId: Joi.string(),
+      sprintId: Joi.string(),
     },
   },
 
   // POST /v1/storys
   createStory: {
     body: {
-      start: Joi.date(),
-      end: Joi.date()
+      name: Joi.string(),
+      description: Joi.string(),
+      acceptanceTests: Joi.string(),
+      businessValue: Joi.number(),
+      priority: Joi.string().valid(Story.priorities),
+      projectId: Joi.string(),
+      sprintId: Joi.string(),
     },
   },
 
   // PUT /v1/storys/:storyId
   replaceStory: {
     body: {
-      start: Joi.date(),
-      end: Joi.date()
+      name: Joi.string(),
+      description: Joi.string(),
+      acceptanceTests: Joi.string(),
+      businessValue: Joi.number(),
+      priority: Joi.string().valid(Story.priorities),
+      projectId: Joi.string(),
+      sprintId: Joi.string(),
     },
     params: {
       storyId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
@@ -35,8 +52,13 @@ module.exports = {
   // PATCH /v1/storys/:storyId
   updateStory: {
     body: {
-      start: Joi.date(),
-      end: Joi.date()
+      name: Joi.string(),
+      description: Joi.string(),
+      acceptanceTests: Joi.string(),
+      businessValue: Joi.number(),
+      priority: Joi.string().valid(Story.priorities),
+      projectId: Joi.string(),
+      sprintId: Joi.string(),
     },
     params: {
       storyId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),

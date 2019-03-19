@@ -26,9 +26,9 @@ router
 router
   .route('/:storyId')
   .get(authorize(LOGGED_USER), controller.get)
-  .put(authorize(ADMIN), validate(replaceStory), controller.replace)
-  .patch(authorize(ADMIN), validate(updateStory), controller.update)
-  .delete(authorize(ADMIN), controller.remove);
+  .put(authorize(LOGGED_USER), validate(replaceStory), controller.replace)
+  .patch(authorize(LOGGED_USER), validate(updateStory), controller.update)
+  .delete(authorize(LOGGED_USER), controller.remove);
 
 
 module.exports = router;

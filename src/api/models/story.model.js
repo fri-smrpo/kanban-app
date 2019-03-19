@@ -78,6 +78,7 @@ storySchema.method({
  * Statics
  */
 storySchema.statics = {
+  priorities,
 
   async get(id) {
     try {

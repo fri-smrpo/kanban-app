@@ -22,7 +22,7 @@ exports.create = async (req, res, next) => {
     res.status(httpStatus.CREATED);
     res.json(savedStory.transform());
   } catch (error) {
-    next(Story.checkDuplicateName(error));
+    next(error);
   }
 };
 
@@ -37,7 +37,7 @@ exports.replace = async (req, res, next) => {
 
     res.json(savedStory.transform());
   } catch (error) {
-    next(Story.checkDuplicateEmail(error));
+    next(error);
   }
 };
 

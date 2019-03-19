@@ -9,6 +9,7 @@ module.exports = {
       page: Joi.number().min(1),
       perPage: Joi.number().min(1).max(100),
       speed: Joi.number(),
+      projectId: Joi.string(),
       start: Joi.date(),
       end: Joi.date()
     },
@@ -20,6 +21,7 @@ module.exports = {
       start: Joi.date(),
       end: Joi.date(),
       speed: Joi.number(),
+      projectId: Joi.string(),
     },
   },
 
@@ -29,6 +31,7 @@ module.exports = {
       start: Joi.date(),
       end: Joi.date(),
       speed: Joi.number(),
+      projectId: Joi.string(),
     },
     params: {
       sprintId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
@@ -41,6 +44,7 @@ module.exports = {
       start: Joi.date(),
       end: Joi.date(),
       speed: Joi.number(),
+      projectId: Joi.string(),
     },
     params: {
       sprintId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
