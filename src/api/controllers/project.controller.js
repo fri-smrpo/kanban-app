@@ -37,7 +37,7 @@ exports.replace = async (req, res, next) => {
 
     res.json(savedProject.transform());
   } catch (error) {
-    next(Project.checkDuplicateEmail(error));
+    next(Project.checkDuplicateName(error));
   }
 };
 
@@ -47,7 +47,7 @@ exports.update = (req, res, next) => {
 
   project.save()
     .then(savedProject => res.json(savedProject.transform()))
-    .catch(e => next(Project.checkDuplicateEmail(e)));
+    .catch(e => next(Project.checkDuplicateName(e)));
 };
 
 exports.list = async (req, res, next) => {
