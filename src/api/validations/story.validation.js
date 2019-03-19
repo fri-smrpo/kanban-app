@@ -10,14 +10,14 @@ module.exports = {
       perPage: Joi.number().min(1).max(100),
 
 
-      name: Joi.string(),
-      description: Joi.string(),
-      acceptanceTests: Joi.string(),
+      name: Joi.string().allow('').optional(),
+      description: Joi.string().allow('').optional(),
+      acceptanceTests: Joi.string().allow('').optional(),
       businessValue: Joi.number(),
       priority: Joi.string().valid(Story.priorities),
       projectId: Joi.string(),
       sprintId: Joi.string(),
-      status: Joi.string(),
+      status: Joi.string().allow('').optional(),
     },
   },
 
@@ -25,13 +25,13 @@ module.exports = {
   createStory: {
     body: {
       name: Joi.string(),
-      description: Joi.string(),
-      acceptanceTests: Joi.string(),
+      description: Joi.string().allow('').optional(),
+      acceptanceTests: Joi.string().allow('').optional(),
       businessValue: Joi.number(),
       priority: Joi.string().valid(Story.priorities),
       projectId: Joi.string(),
       sprintId: Joi.string(),
-      status: Joi.string(),
+      status: Joi.string().allow('').optional(),
     },
   },
 
@@ -39,13 +39,13 @@ module.exports = {
   replaceStory: {
     body: {
       name: Joi.string(),
-      description: Joi.string(),
-      acceptanceTests: Joi.string(),
+      description: Joi.string().allow('').optional(),
+      acceptanceTests: Joi.string().allow('').optional(),
       businessValue: Joi.number(),
       priority: Joi.string().valid(Story.priorities),
       projectId: Joi.string(),
       sprintId: Joi.string(),
-      status: Joi.string(),
+      status: Joi.string().allow('').optional(),
     },
     params: {
       storyId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
@@ -56,13 +56,13 @@ module.exports = {
   updateStory: {
     body: {
       name: Joi.string(),
-      description: Joi.string(),
-      acceptanceTests: Joi.string(),
+      description: Joi.string().allow('').optional(),
+      acceptanceTests: Joi.string().allow('').optional(),
       businessValue: Joi.number(),
       priority: Joi.string().valid(Story.priorities),
       projectId: Joi.string(),
       sprintId: Joi.string(),
-      status: Joi.string(),
+      status: Joi.string().allow('').optional(),
     },
     params: {
       storyId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
