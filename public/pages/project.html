@@ -85,7 +85,7 @@
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Backlog</h6>
 
-        <!-- Check BOX done / not done -->
+        <!-- Check BOX done / not done
         <div class="form-check form-check-inline" style="float:right;">
           <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
           <label class="form-check-label" for="inlineCheckbox1">Zaključeno</label>
@@ -94,20 +94,38 @@
           <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
           <label class="form-check-label" for="inlineCheckbox2">V delu</label>
         </div>
-
+        -->
 
 
       </div>
       <div class="card-body">
-        <table class="table table-striped">
-          <thead>
-          <td> Ime </td>
-          <td> Prioriteta </td>
-          </thead>
-          <tbody id="tableStories">
+        <div class="form-group row">
+          <div class="col-sm-6 mb-3 mb-sm-0">
+            <h5>Opravljeno</h5>
+            <table class="table table-striped">
+              <thead>
+              <td> Ime </td>
+              <td> Prioriteta </td>
+              </thead>
+              <tbody id="tableStoriesDONE">
 
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-sm-6">
+            <h5>V izdelavi</h5>
+            <table class="table table-striped">
+              <thead>
+              <td> Ime </td>
+              <td> Prioriteta </td>
+              </thead>
+              <tbody id="tableStoriesTODO">
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -202,6 +220,13 @@
                   <option value="won't have this time">Won't have this time</option>
                 </select>
               </div>
+            </div>
+            <div class="form-group">
+              <select id="idStatus" class="form-control">
+                <option value="todo">Potrebno izdelati</option>
+                <option value="in_progress">V izdelavi</option>
+                <option value="done">Dokončano</option>
+              </select>
             </div>
             <p class="text-danger" id="napakaStory"></p>
             <a href="#" id="anchorCreateStory" class="btn btn-primary btn-user btn-block">

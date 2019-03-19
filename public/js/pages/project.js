@@ -145,11 +145,16 @@ $(document).ready(function(){
       success: function(data) {
         console.log("Stories");
         console.log(data);
-        $("#tableStories").empty();
+        $("#tableStoriesTODO").empty();
+        $("#tableStoriesDONE").empty();
         data.forEach(x => {
           if(x.priority.charAt(2) == "n")
             x.priority = "will not have this time";
-          $("#tableStories").append(`<tr onclick="showInfo('${x.name}','${x.description}','${x.acceptanceTests}','${x.businessValue}','${x.priority}')"><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
+
+          if(x.status == "done")
+            $("#tableStoriesDONE").append(`<tr onclick="showInfo('${x.name}','${x.description}','${x.acceptanceTests}','${x.businessValue}','${x.priority}')"><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
+          else
+            $("#tableStoriesTODO").append(`<tr onclick="showInfo('${x.name}','${x.description}','${x.acceptanceTests}','${x.businessValue}','${x.priority}')"><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
         })
       },
       error: function(response) {
@@ -179,7 +184,8 @@ $(document).ready(function(){
         console.log(data);
       },
       error: function(response) {
-        $('#napakaStory').text("Napaka, to ime že obstaja!");
+        $('#napakaStory').text("Napaka, to ime že obstaja, ali pa vsa polja niso bila izpolnjena!");
+        $(".modal-body input").val("");
         console.log(response);
       }
 
@@ -219,6 +225,7 @@ $(document).ready(function(){
     var acceptanceTests = $('#idStoryTests').val();
     var businessValue = $('#idStoryBusinessValue').val();
     var priority = $('#idStoryPriority').val();
+    var status = $('#idStatus').val();
     var projectId = window.location.search.split('=')[1];
 
     dataArr = {name: name,
@@ -226,7 +233,8 @@ $(document).ready(function(){
       acceptanceTests: acceptanceTests,
       businessValue: businessValue,
       priority: priority,
-      projectId: projectId};
+      projectId: projectId,
+      status: status};
 
     console.log(dataArr)
     saveStory(dataArr, projectId);
