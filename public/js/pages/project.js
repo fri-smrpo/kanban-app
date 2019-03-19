@@ -20,9 +20,13 @@ $(document).ready(function(){
         var users = data.users;
         var currentUserId = getUserID();
         $('#addNewSprint').prop('disabled', true);
+        $('#addNewStory').prop('disabled', true);
         users.forEach(usr => {
-          if(usr._id == currentUserId && usr.role != 'developer')
+          if(usr._id == currentUserId && usr.role != 'developer'){
             $('#addNewSprint').prop('disabled', false);
+            $('#addNewStory').prop('disabled', false);
+          }
+
 
           console.log(usr.role);
           console.log(usr._id)
@@ -94,7 +98,60 @@ $(document).ready(function(){
 
 
   }
+
+  function loadStories(id){
+    $.ajax({
+      url: '/v1/stories' + '?projectId=' + id,
+      type: 'GET',
+      headers: {
+        'Authorization':'Bearer ' + getToken()
+      },
+      contentType: 'application/json; charset=utf-8',
+      //async: false,
+      success: function(data) {
+        console.log("Stories");
+        console.log(data);
+
+        data.forEach(x => {
+          $("#tableSprints").append(`<tr><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
+        })
+      },
+      error: function(response) {
+        alert("Napaka!");
+        console.log(response);
+      }
+
+    });
+
+  }
+
+  function saveStory(dataArray, id){
+    $.ajax({
+      url: '/v1/stories',
+      type: 'POST',
+      headers: {
+        'Authorization':'Bearer ' + getToken()
+      },
+      data: JSON.stringify(dataArray),
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      //async: false,
+      success: function(data) {
+        $('#exampleModal2').modal('toggle');
+        loadStories(id);
+        console.log("Uspeh");
+        console.log(data);
+      },
+      error: function(response) {
+        alert("Napaka!");
+        console.log(response);
+      }
+
+    });
+
+  }
   loadSprints(window.location.search.split('=')[1]);
+  loadStories(window.location.search.split('=')[1]);
   var d = new Date().toISOString().slice(0,10);
   //getProject(windows.location.search.split('=')[1]);
 
@@ -115,5 +172,27 @@ $(document).ready(function(){
       saveSprint(dataArr, window.location.search.split('=')[1]);
     else
       $('#napaka').text("Sprint se ne more končati pred začetkom!");
+  });
+
+  $('#anchorCreateStory').click(function() {
+
+    var name = $('#idStoryName').val();
+    var description = $('#idStoryDescription').val();
+    var acceptanceTests = $('#idStoryTests').val();
+    var businessValue = $('#idStoryBusinessValue').val();
+    var priority = $('#idStoryPriority').val();
+    var projectId = window.location.search.split('=')[1];
+
+    dataArr = {name: name,
+      description: description,
+      acceptanceTests: acceptanceTests,
+      businessValue: businessValue,
+      priority: priority,
+      projectId: projectId,
+      sprintId: ''};
+
+    console.log(dataArr)
+    saveStory(dataArr, projectId);
+
   });
 });

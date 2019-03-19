@@ -66,11 +66,28 @@
       </div>
     </div>
 
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <div role="alert">
+      </div>
+      <button id="addNewStory" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#exampleModal2">
+        Dodaj zgodbo
+      </button>
+    </div>
+
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Backlog</h6>
       </div>
       <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+          <td> Ime </td>
+          <td> Prioriteta </td>
+          </thead>
+          <tbody id="tableStories">
+
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -123,6 +140,51 @@
             <p class="text-danger" id="napaka"></p>
             <a href="#" id="anchorCreateSprint" class="btn btn-primary btn-user btn-block">
               Ustvari sprint
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel2">Podatki o novi uporabniški zgodbi</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="formRegister2" class="user" method="post">
+
+            <div class="form-group">
+              <input type="text" class="form-control form-control-user" id="idStoryName" placeholder="Ime uporabniške zgodbe">
+            </div>
+            <div class="form-group">
+              <textarea type="text" class="form-control" id="idStoryDescription" placeholder="Opis"></textarea>
+            </div>
+            <div class="form-group">
+              <textarea type="text" class="form-control" id="idStoryTests" placeholder="Testi"></textarea>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="number" class="form-control form-control-user" id="idStoryBusinessValue" placeholder="Poslovna vrednost" min="1">
+              </div>
+              <div class="col-sm-6">
+                <select id="idStoryPriority" class="form-control">
+                  <option value="Must have">Must have</option>
+                  <option value="Could have">Could have</option>
+                  <option value="Should have">Should have</option>
+                  <option value="Won\'t have this time">Won't have this time</option>
+                </select>
+              </div>
+            </div>
+            <p class="text-danger" id="napakaStory"></p>
+            <a href="#" id="anchorCreateStory" class="btn btn-primary btn-user btn-block">
+              Ustvari zgodbo
             </a>
           </form>
         </div>
