@@ -30,7 +30,7 @@ exports.replace = async (req, res, next) => {
   try {
     const { project } = req.locals;
     const newProject = new Project(req.body);
-    const newProjectObject = omit(newProject.toObject(), '_id', 'name');
+    const newProjectObject = omit(newProject.toObject(), '_id');
 
     await project.update(newProjectObject, { override: true, upsert: true });
     const savedProject = await Project.findById(project._id);
@@ -42,7 +42,7 @@ exports.replace = async (req, res, next) => {
 };
 
 exports.update = (req, res, next) => {
-  const updatedProject = omit(req.body, 'name');
+  const updatedProject = omit(req.body, 'xname');
   const project = Object.assign(req.locals.project, updatedProject);
 
   project.save()
