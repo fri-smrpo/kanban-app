@@ -83,7 +83,7 @@ $(document).ready(function(){
         $("#tableSprints").empty();
         var counter = 1;
         data.forEach(x => {
-          $("#tableSprints").append(`<tr><td>` + new Date(x.start) + `</td><td>` + new Date(x.end) + `</td></tr>`);
+          $("#tableSprints").append(`<tr><td>` + new Date(x.start) + `</td><td>` + new Date(x.end) + `</td><td>` + x.speed + `</td></tr>`);
           counter = counter + 1;
         })
       },
