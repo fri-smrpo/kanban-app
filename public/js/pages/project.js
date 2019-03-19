@@ -80,7 +80,7 @@ $(document).ready(function(){
       success: function(data) {
         console.log("Sprints");
         console.log(data);
-
+        $("#tableSprints").empty();
         var counter = 1;
         data.forEach(x => {
           $("#tableSprints").append(`<tr><td>` + new Date(x.start) + `</td><td>` + new Date(x.end) + `</td></tr>`);
@@ -136,7 +136,7 @@ $(document).ready(function(){
       success: function(data) {
         console.log("Stories");
         console.log(data);
-
+        $("#tableStories").empty();
         data.forEach(x => {
           $("#tableStories").append(`<tr><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
         })
