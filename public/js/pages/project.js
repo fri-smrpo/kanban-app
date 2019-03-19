@@ -108,19 +108,20 @@ $(document).ready(function(){
         dataType: 'json',
         //async: false,
         success: function(data) {
+          $("#napaka_anchorCreateSprint").text('');
+          reset();
           $('#exampleModal').modal('toggle');
           loadSprints(id);
           console.log("Uspeh");
           console.log(data);
         },
         error: function(response) {
-          alert("Napaka prekrivanje!");
-          console.log(response);
+          // alert("Napaka prekrivanje!");
+          console.warn(response);
+
+          $("#napaka_anchorCreateSprint").text(response.responseJSON.message);
         }
-
       });
-
-      reset();
 
   }
 
