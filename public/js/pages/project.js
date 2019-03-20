@@ -151,6 +151,8 @@ $(document).ready(function(){
           if(x.priority.charAt(2) == "n")
             x.priority = "will not have this time";
 
+          x.description = x.description.replace(/(?:\r\n|\r|\n)/g, ', ');
+          x.acceptanceTests = x.acceptanceTests.replace(/(?:\r\n|\r|\n)/g, ', ');
           if(x.status == "done")
             $("#tableStoriesDONE").append(`<tr onclick="showInfo('${x.name}','${x.description}','${x.acceptanceTests}','${x.businessValue}','${x.priority}')"><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
           else
