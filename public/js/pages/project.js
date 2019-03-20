@@ -158,8 +158,8 @@ $(document).ready(function(){
           if(x.priority.charAt(2) == "n")
             x.priority = "will not have this time";
 
-          x.description = x.description.replace(/(?:\r\n|\r|\n)/g, ', ');
-          x.acceptanceTests = x.acceptanceTests.replace(/(?:\r\n|\r|\n)/g, ', ');
+          x.description = x.description.replace(/(?:\r\n|\r|\n)/g, '\t');
+          x.acceptanceTests = x.acceptanceTests.replace(/(?:\r\n|\r|\n)/g, '\t');
           if(x.status == "done")
             $("#tableStoriesDONE").append(`<tr onclick="showInfo('${x.name}','${x.description}','${x.acceptanceTests}','${x.businessValue}','${x.priority}')"><td>` + x.name + `</td><td>` + x.priority + `</td></tr>`);
           else
@@ -276,10 +276,14 @@ $(document).ready(function(){
 
 function showInfo(name,description,acceptanceTests,businessValue,priority){
   //empty modal
+  $('#storyOpisP').empty();
+  $('#storyTestsP').empty();
+  description = description.split('\t').join('<br>');
+  acceptanceTests = acceptanceTests.split('\t').join('<br>');
   $('#exampleModal3').modal('toggle');
   $('#exampleModalLabel3').text(name);
-  $('#storyOpis').text(description);
-  $('#storyTests').text(acceptanceTests);
+  $('#storyOpisP').append(description);
+  $('#storyTestsP').append(acceptanceTests);
   $('#storyBusinessValueAndPriority').text("Poslovna vrednost: " + businessValue + "\n" + "Prioriteta: " + priority);
   console.log("aa");
   console.log(name, description, acceptanceTests, businessValue, priority);
