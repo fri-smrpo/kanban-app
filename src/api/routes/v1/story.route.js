@@ -20,7 +20,7 @@ router.param('storyId', controller.load);
 router
   .route('/')
   .get(authorize(), validate(listStorys), controller.list)
-  .post(authorize(ADMIN), validate(createStory), controller.create);
+  .post(authorize(), validate(createStory), controller.create);
 
 
 router

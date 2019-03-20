@@ -83,7 +83,14 @@ $(document).ready(function(){
         $("#tableSprints").empty();
         var counter = 1;
         data.forEach(x => {
-          $("#tableSprints").append(`<tr><td>` + moment(new Date(x.start)).format('D. M. YYYY') + `</td><td>` + moment(new Date(x.end)).format('D. M. YYYY') + `</td><td>` + x.speed + `</td></tr>`);
+          if ((+ new Date()) >= new Date(x.start) && (+ new Date()) <= (+ new Date(x.end))) {
+            $("#tableSprints").append(`<tr style="font-weight: bold; color: #0b2e13;" ><td> (aktiven) ` + moment(new Date(x.start)).format('D. M. YYYY') + `</td><td>` + moment(new Date(x.end)).format('D. M. YYYY') + `</td><td>` + x.speed + `</td></tr>`);
+          } else {
+            $("#tableSprints").append(`<tr><td>` + moment(new Date(x.start)).format('D. M. YYYY') + `</td><td>` + moment(new Date(x.end)).format('D. M. YYYY') + `</td><td>` + x.speed + `</td></tr>`);
+          }
+
+
+          // $("#tableSprints").append(`<tr><td>` + moment(new Date(x.start)).format('D. M. YYYY') + `</td><td>` + moment(new Date(x.end)).format('D. M. YYYY') + `</td><td>` + x.speed + `</td></tr>`);
           counter = counter + 1;
         })
       },

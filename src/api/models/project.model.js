@@ -28,7 +28,7 @@ const projectSchema = new mongoose.Schema({
       role: {
         type: String,
         enum: roles,
-        default: 'user',
+        default: 'developer',
       },
       user: {
         required: true,

@@ -87,8 +87,16 @@ function urediProjekt(id) {
   for(const u of izbranProjekt.users) {
     for(const v of window.value) {
       if (u.user === v[0]) {
-        var end = v[1]+ " ("+v[2]+" "+v[3]+"): "+u.role;
-        $("#ppl").append('<tr class="item"><td role="' + u.user + '">' + end + '<span class="vloga">' + vloga +'</span><td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
+
+        let _jeb = u.role;
+        _jeb = ({
+          'product-owner': 'Produktni vodja',
+          'scrum-master': 'Skrbnik metodologije',
+          'developer': 'Razvijalec'
+        })[_jeb];
+        _jeb = _jeb || u.role;
+        var end = v[1]+ " ("+v[2]+" "+v[3]+"): "+ _jeb;
+        $("#ppl").append('<tr class="item"><td role="' + u.user + '">' + end + '<span class="vloga" style="display: none">' + _jeb +'</span><td><button onclick="izbrisiOseba(this)" style="float:right;" type="submit" class="btn btn-default btn-sm delete">X</button></td></td></tr>');
       }
     }
   }
