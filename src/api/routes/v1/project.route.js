@@ -20,14 +20,14 @@ router.param('projectId', controller.load);
 router
   .route('/')
   .get(authorize(), validate(listProjects), controller.list)
-  .post(authorize(ADMIN), validate(createProject), controller.create);
+  .post(authorize(), validate(createProject), controller.create);
 
 
 router
   .route('/:projectId')
-  .put(authorize(ADMIN), validate(replaceProject), controller.replace)
-  .patch(authorize(ADMIN), validate(updateProject), controller.update)
-  .delete(authorize(ADMIN), controller.remove)
+  .put(authorize(), validate(replaceProject), controller.replace)
+  .patch(authorize(), validate(updateProject), controller.update)
+  .delete(authorize(), controller.remove)
   .get(authorize(), controller.get);
 
 

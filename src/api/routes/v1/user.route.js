@@ -20,7 +20,7 @@ router.param('userId', controller.load);
 router
   .route('/')
   .get(authorize(), validate(listUsers), controller.list)
-  .post(authorize(ADMIN), validate(createUser), controller.create);
+  .post(authorize(), validate(createUser), controller.create);
 
 
 router

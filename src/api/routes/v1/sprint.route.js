@@ -20,15 +20,15 @@ router.param('sprintId', controller.load);
 router
   .route('/')
   .get(authorize(), validate(listSprints), controller.list)
-  .post(authorize(ADMIN), validate(createSprint), controller.create);
+  .post(authorize(), validate(createSprint), controller.create);
 
 
 router
   .route('/:sprintId')
   .get(authorize(), controller.get)
-  .put(authorize(ADMIN), validate(replaceSprint), controller.replace)
-  .patch(authorize(ADMIN), validate(updateSprint), controller.update)
-  .delete(authorize(ADMIN), controller.remove);
+  .put(authorize(), validate(replaceSprint), controller.replace)
+  .patch(authorize(), validate(updateSprint), controller.update)
+  .delete(authorize(), controller.remove);
 
 
 module.exports = router;
